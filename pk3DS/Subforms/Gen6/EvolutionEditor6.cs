@@ -9,6 +9,9 @@ using pk3DS.Properties;
 using pk3DS.Core;
 using pk3DS.Core.Randomizers;
 using pk3DS.Core.Structures;
+using System.Text.Json;
+using System.Collections.Generic;
+using pk3DS.Core.Structures.AXExports;
 
 namespace pk3DS
 {
@@ -206,7 +209,7 @@ namespace pk3DS
 
                 result += Environment.NewLine;
             }
-            SaveFileDialog sfd = new SaveFileDialog {FileName = "Evolutions.txt", Filter = "Text File|*.txt"};
+            SaveFileDialog sfd = new SaveFileDialog { FileName = "Evolutions.txt", Filter = "Text File|*.txt" };
 
             SystemSounds.Asterisk.Play();
             if (sfd.ShowDialog() == DialogResult.OK)
@@ -250,7 +253,7 @@ namespace pk3DS
                 case 1: // Level
                     { for (int i = 0; i <= 100; i++) pb[op].Items.Add(i.ToString()); break; }
                 case 2: // Items
-                    {  foreach (string t in itemlist) pb[op].Items.Add(t); break; }
+                    { foreach (string t in itemlist) pb[op].Items.Add(t); break; }
                 case 3: // Moves
                     { foreach (string t in movelist) pb[op].Items.Add(t); break; }
                 case 4: // Species
@@ -268,6 +271,99 @@ namespace pk3DS
             if (sender is not ComboBox cb)
                 return;
             pic[Array.IndexOf(rb, cb)].Image = (Bitmap)Resources.ResourceManager.GetObject("_" + Array.IndexOf(specieslist, cb.Text));
+        }
+
+        private void B_Export_Site(object sender, EventArgs e)
+        {
+            if (DialogResult.Yes != WinFormsUtil.Prompt(MessageBoxButtons.YesNo, "Export evos for Site?"))
+                return;
+
+            Dictionary<string, ExportEvoSite> evoDict = new();
+
+            for (int i = 1; i < CB_Species.Items.Count; i++)
+            {
+                CB_Species.SelectedIndex = i;
+
+                string pkmName = AXHelpers.GetJSONPkmName(CB_Species);
+
+                ExportEvoSite evo = new();
+
+                for (int j = 0; j < 8; j++)
+                {
+                    int pokeIdx = rb[j].SelectedIndex;
+                    int methodIdx = mb[j].SelectedIndex;
+
+                    string method = mb[j].Text + ": " + pb[j].Text;
+                    if (AXHelpers.BetterEvoMethodDesc.ContainsKey(methodIdx))
+                        method = AXHelpers.BetterEvoMethodDesc[methodIdx].Replace("PARAM", pb[j].Text);
+
+                    method = method.Replace("’", "'");
+
+                    if (pokeIdx > 0 && methodIdx > 0)
+                    {
+                        string evolvePkmName = AXHelpers.GetJSONPkmName(rb[j]);
+
+                        try
+                        {
+                            evo.EvolvesInto.Add(evolvePkmName, method);
+                        }
+                        catch (ArgumentException)
+                        {
+                            if (evolvePkmName == "Darmanitan")
+                                evo.EvolvesInto.Add(evolvePkmName + "-Zen", method);
+                            else if (evolvePkmName == "Meowstic")
+                                evo.EvolvesInto.Add(evolvePkmName + "-Female", method);
+                            else
+                                throw new Exception("Attempting to place a duplicate key for an unexpected form evolution.");
+                        }
+
+                        ExportEvoSite fromEvo = new()
+                        {
+                            EvolvesFrom = pkmName,
+                            FromMethod = method
+                        };
+
+                        try
+                        {
+                            evoDict.Add(evolvePkmName, fromEvo);
+                        }
+                        catch (ArgumentException)
+                        {
+                            /*evoDict[evolvePkmName].EvolvesFrom = fromEvo.EvolvesFrom;
+                            evoDict[evolvePkmName].FromMethod = fromEvo.FromMethod;*/
+                            if (evolvePkmName == "Darmanitan")
+                                evoDict.Add(evolvePkmName + "-Zen", fromEvo);
+                            else if (evolvePkmName == "Meowstic")
+                                evoDict.Add(evolvePkmName + "-Female", fromEvo);
+                            else
+                            {
+                                evoDict[evolvePkmName].EvolvesFrom = fromEvo.EvolvesFrom;
+                                evoDict[evolvePkmName].FromMethod = fromEvo.FromMethod;
+                                //throw new Exception("Attempting to place a duplicate key for an unexpected form evolution.");
+                            }
+                        }
+                    }
+                }
+
+                try
+                {
+                    evoDict.Add(pkmName, evo);
+                }
+                catch (ArgumentException)
+                {
+                    evoDict[pkmName].EvolvesInto = evo.EvolvesInto;
+                }
+            }
+
+            SaveFileDialog sfd = new() { FileName = "evolutions.json", Filter = "JSON|*.json" };
+            SystemSounds.Asterisk.Play();
+
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                string path = sfd.FileName;
+                string json = JsonSerializer.Serialize(evoDict);
+                File.WriteAllText(path, json);
+            }
         }
     }
 }

@@ -76,8 +76,11 @@ namespace pk3DS
             dgvTM.Rows.Clear();
 
             GetDataOffset();
-            for (int i = 0; i < 92; i++) // 1-92 TMs stored sequentially
+            // 1-92 TMs stored sequentially
+            for (int i = 0; i < 92; i++)
+            {
                 tms.Add(BitConverter.ToUInt16(data, dataoffset + (2 * i)));
+            }
             for (int i = 92; i < 92 + 5; i++)
                 hms.Add(BitConverter.ToUInt16(data, dataoffset + (2 * i)));
             if (Main.Config.ORAS)

@@ -152,7 +152,10 @@ namespace pk3DS
             for (int i = 0; i < count; i++)
             {
                 dgv.Rows[i].Cells[0].Value = i.ToString();
-                dgv.Rows[i].Cells[1].Value = itemlist[BitConverter.ToUInt16(data, dataoffset + (2 * i))];
+                int itemIndex = BitConverter.ToUInt16(data, dataoffset + (2 * i));
+                if (BitConverter.ToUInt16(data, dataoffset + (2 * i)) >= itemlist.Length)
+                    itemIndex = 0x0;
+                dgv.Rows[i].Cells[1].Value = itemlist[itemIndex];
             }
         }
 

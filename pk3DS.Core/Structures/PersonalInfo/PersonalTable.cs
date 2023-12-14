@@ -4,7 +4,7 @@ namespace pk3DS.Core.Structures.PersonalInfo
 {
     public class PersonalTable
     {
-        private static byte[][] SplitBytes(byte[] data, int size)
+        public static byte[][] SplitBytes(byte[] data, int size)
         {
             byte[][] r = new byte[data.Length / size][];
             for (int i = 0; i < data.Length; i += size)

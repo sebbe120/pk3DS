@@ -68,16 +68,18 @@ namespace pk3DS
                     tw.WriteLine("~~~~~~~~~~~~~~~");
                     // Write the String to the File
                     if (data == null) continue;
-                    foreach (string line in data)
+                    for (int j = 0; j < data.Length; j++)
                     {
-                        tw.WriteLine(newline
+                        string line = data[j];
+                        tw.WriteLine(j + ": " + 
+                            (newline
                             ? line.Replace("\\n\\n", " ")
                                 .Replace("\\n", " ")
                                 .Replace("\\c", "")
                                 .Replace("\\r", "")
                                 .Replace("\\\\", "\\")
                                 .Replace("\\[", "[")
-                            : line);
+                            : line));
                     }
                 }
             }

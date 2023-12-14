@@ -10,6 +10,8 @@ using pk3DS.Properties;
 using pk3DS.Core.Structures;
 using pk3DS.Core;
 using pk3DS.Core.Randomizers;
+using System.Text.Json;
+using pk3DS.Core.Structures.AXExports;
 
 namespace pk3DS
 {
@@ -25,7 +27,8 @@ namespace pk3DS
             specieslist[0] = movelist[0] = "";
 
             string[] sortedspecies = (string[])specieslist.Clone();
-            Array.Resize(ref sortedspecies, Main.Config.MaxSpeciesID); Array.Sort(sortedspecies);
+            Array.Resize(ref sortedspecies, Main.Config.MaxSpeciesID);
+            //Array.Sort(sortedspecies);
             SetupDGV();
 
             var newlist = new List<ComboItem>();
@@ -39,6 +42,42 @@ namespace pk3DS
             CB_Species.DataSource = newlist;
             CB_Species.SelectedIndex = 0;
             RandSettings.GetFormSettings(this, groupBox1.Controls);
+
+            /*for (int i = 0; i < CB_Species.Items.Count; i++)
+            {
+                CB_Species.SelectedIndex = i; // Get new Species
+                for (int j = 0; j < dgv.Rows.Count - 1; j++)
+                {
+                    string replaceOldMove = "Scorching Swarm";
+                    string replaceNewMove = "Fury Swipes";
+                    if ((string)dgv.Rows[j].Cells[1].Value == replaceOldMove)
+                    {
+                        Debug.WriteLine($"Replacing {CB_Species.Text}'s {replaceOldMove} at level {dgv.Rows[j].Cells[0].Value} with {replaceNewMove}.");
+                        for (int k = 0; k < movelist.Length; k++)
+                        {
+                            if (movelist[k] == replaceNewMove)
+                            {
+                                dgv.Rows[j].Cells[1].Value = movelist[k];
+                            }
+                        }
+                    }
+                }
+            }*/
+
+            /*Dictionary<string, int> test = new();
+
+            for (int i = 0; i < newlist.Count; i++)
+            {
+                byte[] input = files[i];
+                if (input.Length <= 4) { files[i] = BitConverter.GetBytes(-1); continue; }
+                var ls = new Learnset6(input);
+                test.Add(i < Main.Config.MaxSpeciesID ? sortedspecies[i] : specieslist[i], ls.Count);
+            }
+            var newTest = test.OrderBy(x => x.Value).ToList();
+            for (int i = 0; i < newTest.Count; i++)
+            {
+                Debug.WriteLine($"{newTest[i].Key}: {newTest[i].Value}");
+            }*/
         }
 
         private readonly byte[][] files;
@@ -95,12 +134,14 @@ namespace pk3DS
                 dgv.Rows[i].Cells[1].Value = movelist[pkm.Moves[i]];
             }
 
+            dgv.Sort(dgv.Columns[0], System.ComponentModel.ListSortDirection.Ascending);
             dgv.CancelEdit();
         }
 
         private void SetList()
         {
             if (entry < 1 || dumping) return;
+
             List<int> moves = new List<int>();
             List<int> levels = new List<int>();
             for (int i = 0; i < dgv.Rows.Count - 1; i++)
@@ -115,9 +156,13 @@ namespace pk3DS
                 else if (lv == 0) lv = 1;
                 levels.Add(lv);
             }
+
             pkm.Moves = moves.ToArray();
             pkm.Levels = levels.ToArray();
             files[entry] = pkm.Write();
+
+            if (pkm.Count > 26)
+                WinFormsUtil.Alert("For XY, the Move Rememberer will break if you have more than 26 moves in your Level Up Move List.", "Be sure to reduce the number of moves this Pokemon can learn!");
         }
 
         private void ChangeEntry(object sender, EventArgs e)
@@ -132,7 +177,7 @@ namespace pk3DS
             if (CHK_HMs.Checked && Main.ExeFSPath != null)
                 TMHMEditor6.GetTMHMList(out _, out HMs);
 
-            List<int> banned = new List<int> {165, 621}; // Struggle, Hyperspace Fury
+            List<int> banned = new List<int> { 165, 621 }; // Struggle, Hyperspace Fury
             if (!CHK_HMs.Checked)
                 banned.AddRange(HMs.Select(z => (int)z));
             if (CHK_NoFixedDamage.Checked)
@@ -181,25 +226,63 @@ namespace pk3DS
                 return;
 
             dumping = true;
-            string result = "";
+            string result = "#\tPokemon\tLv\tMove";
             for (int i = 0; i < CB_Species.Items.Count; i++)
             {
                 CB_Species.SelectedIndex = i; // Get new Species
-                result += "======" + Environment.NewLine + entry + " " + CB_Species.Text + Environment.NewLine + "======" + Environment.NewLine;
+                result += Environment.NewLine + entry + "\t" + CB_Species.Text + Environment.NewLine;
                 for (int j = 0; j < dgv.Rows.Count - 1; j++)
-                    result += $"{dgv.Rows[j].Cells[0].Value} - {dgv.Rows[j].Cells[1].Value + Environment.NewLine}";
-
-                result += Environment.NewLine;
+                    result += $"\t\t{dgv.Rows[j].Cells[0].Value}\t{dgv.Rows[j].Cells[1].Value + (j == dgv.Rows.Count - 2 ? "" : Environment.NewLine)}";
             }
-            SaveFileDialog sfd = new SaveFileDialog {FileName = "Level Up Moves.txt", Filter = "Text File|*.txt"};
 
+            SaveFileDialog sfd = new() { FileName = "Level Up Moves.txt", Filter = "Text File|*.txt" };
             SystemSounds.Asterisk.Play();
+
             if (sfd.ShowDialog() == DialogResult.OK)
             {
                 string path = sfd.FileName;
                 File.WriteAllText(path, result, Encoding.Unicode);
             }
             dumping = false;
+        }
+
+        private void B_Export_Site(object sender, EventArgs e)
+        {
+            if (DialogResult.Yes != WinFormsUtil.Prompt(MessageBoxButtons.YesNo, "Dump all Level Up Moves to Text File?"))
+                return;
+
+            Dictionary<string, List<ExportLevelUpMoveSite>> pkmMoveDict = new();
+
+            for (int i = 0; i < CB_Species.Items.Count; i++)
+            {
+                CB_Species.SelectedIndex = i;
+
+                string pkmName = AXHelpers.GetJSONPkmName(CB_Species);
+
+                if ((pkmName.StartsWith("Furfrou") && pkmName != "Furfrou") ||
+                    (pkmName.StartsWith("Floette") && pkmName != "Floette"))
+                    continue;
+
+                List<ExportLevelUpMoveSite> moveList = new();
+                for (int j = 0; j < dgv.Rows.Count - 1; j++)
+                    moveList.Add(new()
+                    {
+                        Level = int.Parse(dgv.Rows[j].Cells[0].Value.ToString()),
+                        Move = dgv.Rows[j].Cells[1].Value.ToString().Replace("’", "'")
+            });
+
+                pkmMoveDict.Add(pkmName, moveList);
+            }
+
+            SaveFileDialog sfd = new() { FileName = "levelUpMoves.json", Filter = "JSON|*.json" };
+            SystemSounds.Asterisk.Play();
+
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                string path = sfd.FileName;
+                string json = JsonSerializer.Serialize(pkmMoveDict);
+                File.WriteAllText(path, json);
+            }
         }
 
         private void Form_Closing(object sender, FormClosingEventArgs e)
@@ -232,7 +315,7 @@ namespace pk3DS
                 if (max < movecount) { max = movecount; spec = i; } // Max Moves (and species)
                 for (int m = 0; m < movedata.Length / 4; m++)
                 {
-                    int move = BitConverter.ToUInt16(movedata, m*4);
+                    int move = BitConverter.ToUInt16(movedata, m * 4);
                     if (move == 65535)
                     {
                         movectr--;

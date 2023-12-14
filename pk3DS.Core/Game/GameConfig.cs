@@ -125,6 +125,93 @@ namespace pk3DS.Core
             InitializeMoves();
             InitializeEvos();
             InitializeGameInfo();
+            // Don't uncomment this bit of code unless you know exactly what you're doing.
+            // TODO Integrate this into the UI
+            //EditModelMasterTable();
+        }
+
+        public void EditModelMasterTable()
+        {
+            GARCFile ModelFile = GetGARCData("models");
+            byte[] MasterTable = ModelFile.Files[0];
+            int dataLength = 0xB48;
+            byte[] LimitedMT = new byte[dataLength];
+            Array.Copy(MasterTable, 0, LimitedMT, 0, dataLength);
+            //Console.WriteLine($"{BitConverter.ToString(MasterTable)}");
+            int size = 0x4;
+            byte[][] splitTable = PersonalTable.SplitBytes(LimitedMT, size);
+
+            /*for (int i = 0; i < splitTable.Length; i++)
+            {
+                Console.WriteLine($"Model[{i}]: {BitConverter.ToString(splitTable[i])}");
+            }*/
+
+            //edit pokemon's counts
+            int pokemonIndex = 384;
+            int modelIndex = -1;
+            //form count
+            splitTable[pokemonIndex - 1][2] = 0x2;
+            //identifier, 0x1 = no extra forms, 0x3 = gender forms, 0x5 = non-gender forms, 0x7 = both gender and non-gender forms
+            splitTable[pokemonIndex - 1][3] = 0x5;
+
+            int modelCount = 0;
+            for (int i = 0; i < splitTable.Length; i++)
+            {
+                if (i == pokemonIndex - 1)
+                {
+                    modelIndex = modelCount;
+                }
+                splitTable[i][0] = (byte)modelCount;
+                splitTable[i][1] = (byte)(modelCount >> 8);
+                modelCount += splitTable[i][2];
+            }
+
+            /*for (int i = 0; i < splitTable.Length; i++)
+            {
+                Console.WriteLine($"Model[{i}]: {BitConverter.ToString(splitTable[i])}");
+            }*/
+
+            LimitedMT = splitTable.SelectMany(x => x).ToArray();
+            Array.Copy(LimitedMT, 0, MasterTable, 0, dataLength);
+
+            //Console.WriteLine($"modelcount: {modelCount}, mc * 2 - 2: {modelCount * 2 - 2}");
+            byte[] backhalfMT = new byte[modelCount * 2 - 2];
+            Array.Copy(MasterTable, dataLength, backhalfMT, 0, modelCount * 2 - 2);
+            //int backSize = 0x2;
+            //byte[][] splitBack = PersonalTable.SplitBytes(backhalfMT, backSize);
+
+            byte[] rewriteBackMT = new byte[modelCount * 2];
+            for (int i = 0, j = 0; i < modelCount * 2; i += 2, j += 2)
+            {
+                if (i / 2 == modelIndex)
+                {
+                    //this first byte would be 0x1 if its a female model
+                    //this doesn't apply here because we're only adding 2 bytes for megas and they're just set as 00 00
+                    //if you want to find the 2 bytes, use B48 + (2 * modelCount) at the index of your pokemon
+                    rewriteBackMT[i] = 0x0;
+                    rewriteBackMT[i + 1] = 0x0;
+                    j -= 2;
+                }
+                else
+                {
+                    rewriteBackMT[i] = backhalfMT[j];
+                    rewriteBackMT[i + 1] = backhalfMT[j + 1];
+                }
+            }
+            //Console.WriteLine($"First: {BitConverter.ToString(backhalfMT)}");
+            //Console.WriteLine($"Rewrt: {BitConverter.ToString(rewriteBackMT)}");
+
+            Array.Resize(ref MasterTable, dataLength + modelCount * 2);
+            Array.Copy(rewriteBackMT, 0, MasterTable, dataLength, modelCount * 2);
+
+            //Console.WriteLine($"Full Table: {BitConverter.ToString(MasterTable)}");
+
+            byte[][] modelReplace = ModelFile.Files;
+            modelReplace[0] = MasterTable;
+            ModelFile.Files = modelReplace;
+
+            //Console.WriteLine($"Full Table Again: {BitConverter.ToString(ModelFile.Files[0])}");
+            ModelFile.Save();
         }
 
         public void InitializePersonal()

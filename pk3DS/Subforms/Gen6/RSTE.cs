@@ -5,11 +5,15 @@ using System.IO;
 using System.Linq;
 using System.Media;
 using System.Text;
+using System.Text.Json;
+using System.Threading;
 using System.Windows.Forms;
-
 using pk3DS.Core;
 using pk3DS.Core.Randomizers;
 using pk3DS.Core.Structures;
+using pk3DS.Core.Structures.AXExports;
+using pk3DS.Core.Structures.Gen6;
+using pk3DS.Subforms.Gen6;
 
 namespace pk3DS
 {
@@ -30,17 +34,18 @@ namespace pk3DS
             InitializeComponent();
             // String Fetching
             #region Combo Box Arrays
-            trpk_pkm =    new[] { CB_Pokemon_1_Pokemon, CB_Pokemon_2_Pokemon, CB_Pokemon_3_Pokemon, CB_Pokemon_4_Pokemon, CB_Pokemon_5_Pokemon, CB_Pokemon_6_Pokemon, };
-            trpk_lvl =    new[] { CB_Pokemon_1_Level,   CB_Pokemon_2_Level,   CB_Pokemon_3_Level,   CB_Pokemon_4_Level,   CB_Pokemon_5_Level,   CB_Pokemon_6_Level,   };
-            trpk_item =   new[] { CB_Pokemon_1_Item,    CB_Pokemon_2_Item,    CB_Pokemon_3_Item,    CB_Pokemon_4_Item,    CB_Pokemon_5_Item,    CB_Pokemon_6_Item,    };
-            trpk_abil =   new[] { CB_Pokemon_1_Ability, CB_Pokemon_2_Ability, CB_Pokemon_3_Ability, CB_Pokemon_4_Ability, CB_Pokemon_5_Ability, CB_Pokemon_6_Ability, };
-            trpk_m1 =     new[] { CB_Pokemon_1_Move_1,  CB_Pokemon_2_Move_1,  CB_Pokemon_3_Move_1,  CB_Pokemon_4_Move_1,  CB_Pokemon_5_Move_1,  CB_Pokemon_6_Move_1,  };
-            trpk_m2 =     new[] { CB_Pokemon_1_Move_2,  CB_Pokemon_2_Move_2,  CB_Pokemon_3_Move_2,  CB_Pokemon_4_Move_2,  CB_Pokemon_5_Move_2,  CB_Pokemon_6_Move_2,  };
-            trpk_m3 =     new[] { CB_Pokemon_1_Move_3,  CB_Pokemon_2_Move_3,  CB_Pokemon_3_Move_3,  CB_Pokemon_4_Move_3,  CB_Pokemon_5_Move_3,  CB_Pokemon_6_Move_3,  };
-            trpk_m4 =     new[] { CB_Pokemon_1_Move_4,  CB_Pokemon_2_Move_4,  CB_Pokemon_3_Move_4,  CB_Pokemon_4_Move_4,  CB_Pokemon_5_Move_4,  CB_Pokemon_6_Move_4,  };
-            trpk_IV =     new[] { CB_Pokemon_1_IVs,     CB_Pokemon_2_IVs,     CB_Pokemon_3_IVs,     CB_Pokemon_4_IVs,     CB_Pokemon_5_IVs,     CB_Pokemon_6_IVs,     };
-            trpk_form =   new[] { CB_Pokemon_1_Form,    CB_Pokemon_2_Form,    CB_Pokemon_3_Form,    CB_Pokemon_4_Form,    CB_Pokemon_5_Form,    CB_Pokemon_6_Form,    };
-            trpk_gender = new[] { CB_Pokemon_1_Gender,  CB_Pokemon_2_Gender,  CB_Pokemon_3_Gender,  CB_Pokemon_4_Gender,  CB_Pokemon_5_Gender,  CB_Pokemon_6_Gender,  };
+            trpk_pkm = new[] { CB_Pokemon_1_Pokemon, CB_Pokemon_2_Pokemon, CB_Pokemon_3_Pokemon, CB_Pokemon_4_Pokemon, CB_Pokemon_5_Pokemon, CB_Pokemon_6_Pokemon, };
+            trpk_lvl = new[] { CB_Pokemon_1_Level, CB_Pokemon_2_Level, CB_Pokemon_3_Level, CB_Pokemon_4_Level, CB_Pokemon_5_Level, CB_Pokemon_6_Level, };
+            trpk_item = new[] { CB_Pokemon_1_Item, CB_Pokemon_2_Item, CB_Pokemon_3_Item, CB_Pokemon_4_Item, CB_Pokemon_5_Item, CB_Pokemon_6_Item, };
+            trpk_abil = new[] { CB_Pokemon_1_Ability, CB_Pokemon_2_Ability, CB_Pokemon_3_Ability, CB_Pokemon_4_Ability, CB_Pokemon_5_Ability, CB_Pokemon_6_Ability, };
+            trpk_m1 = new[] { CB_Pokemon_1_Move_1, CB_Pokemon_2_Move_1, CB_Pokemon_3_Move_1, CB_Pokemon_4_Move_1, CB_Pokemon_5_Move_1, CB_Pokemon_6_Move_1, };
+            trpk_m2 = new[] { CB_Pokemon_1_Move_2, CB_Pokemon_2_Move_2, CB_Pokemon_3_Move_2, CB_Pokemon_4_Move_2, CB_Pokemon_5_Move_2, CB_Pokemon_6_Move_2, };
+            trpk_m3 = new[] { CB_Pokemon_1_Move_3, CB_Pokemon_2_Move_3, CB_Pokemon_3_Move_3, CB_Pokemon_4_Move_3, CB_Pokemon_5_Move_3, CB_Pokemon_6_Move_3, };
+            trpk_m4 = new[] { CB_Pokemon_1_Move_4, CB_Pokemon_2_Move_4, CB_Pokemon_3_Move_4, CB_Pokemon_4_Move_4, CB_Pokemon_5_Move_4, CB_Pokemon_6_Move_4, };
+            trpk_IV = new[] { CB_Pokemon_1_IVs, CB_Pokemon_2_IVs, CB_Pokemon_3_IVs, CB_Pokemon_4_IVs, CB_Pokemon_5_IVs, CB_Pokemon_6_IVs, };
+            trpk_form = new[] { CB_Pokemon_1_Form, CB_Pokemon_2_Form, CB_Pokemon_3_Form, CB_Pokemon_4_Form, CB_Pokemon_5_Form, CB_Pokemon_6_Form, };
+            trpk_gender = new[] { CB_Pokemon_1_Gender, CB_Pokemon_2_Gender, CB_Pokemon_3_Gender, CB_Pokemon_4_Gender, CB_Pokemon_5_Gender, CB_Pokemon_6_Gender, };
+            trpk_nature = new[] { TB_Pokemon_1_Nature, TB_Pokemon_2_Nature, TB_Pokemon_3_Nature, TB_Pokemon_4_Nature, TB_Pokemon_5_Nature, TB_Pokemon_6_Nature };
             #endregion
             string[] species = Main.Config.GetText(TextName.SpeciesNames);
             AltForms = Main.Config.Personal.GetFormList(species, Main.Config.MaxSpeciesID);
@@ -61,6 +66,7 @@ namespace pk3DS
         private readonly ComboBox[] trpk_IV;
         private readonly ComboBox[] trpk_form;
         private readonly ComboBox[] trpk_gender;
+        private readonly TextBox[] trpk_nature;
 
         private PictureBox[] pba;
 
@@ -91,6 +97,8 @@ namespace pk3DS
             int i = Array.IndexOf(trpk_pkm, sender as ComboBox);
             FormUtil.SetForms(trpk_pkm[i].SelectedIndex, trpk_form[i], AltForms);
             RefreshPKMSlotAbility(i);
+
+            CalculateNature(sender, e);
         }
 
         private void RefreshPKMSlotAbility(int slot)
@@ -139,8 +147,9 @@ namespace pk3DS
                         trpk_gender[i].SelectedIndex =
                         trpk_form[i].SelectedIndex =
                         trpk_abil[i].SelectedIndex =
-                        trpk_IV[i].SelectedIndex =
                         trpk_lvl[i].SelectedIndex = 0;
+
+                        trpk_IV[i].SelectedIndex = 31;
                     }
                     if (!trpk_item[i].Enabled)
                     {
@@ -206,7 +215,7 @@ namespace pk3DS
                 string tdata = GetTRSummary();
                 toret += tdata;
             }
-            SaveFileDialog sfd = new SaveFileDialog {FileName = "Battles.txt", Filter = "Text File|*.txt"};
+            SaveFileDialog sfd = new SaveFileDialog { FileName = "Battles.txt", Filter = "Text File|*.txt" };
 
             SystemSounds.Asterisk.Play();
             if (sfd.ShowDialog() == DialogResult.OK)
@@ -234,7 +243,7 @@ namespace pk3DS
 
             if (index == 0) return;
 
-            tabControl1.Enabled = true;
+            TabControl.Enabled = true;
             byte[] trd = trdata[index];
             byte[] trp = trpoke[index];
             tr = new TrainerData6(trd, trp, Main.Config.ORAS);
@@ -282,6 +291,9 @@ namespace pk3DS
                 for (int i = 0; i < 6; i++) ShowTeams(i);
                 // showText(); // Commented out for now, have to figure out how text is assigned.
             }
+
+            CalculateNature(CB_Trainer_Class, EventArgs.Empty);
+            ReloadNatureMap(TabControl, EventArgs.Empty);
         }
 
         private void WriteFile()
@@ -339,16 +351,9 @@ namespace pk3DS
         {
             if (tr == null) return;
             if (i >= tr.Team.Length) { pba[i].Image = null; return; }
-            Bitmap rawImg = WinFormsUtil.GetSprite(tr.Team[i].Species, tr.Team[i].Form, tr.Team[i].Gender, tr.Team[i].Item, Main.Config);
+            Bitmap rawImg = WinFormsUtil.GetSprite(trpk_pkm[i].SelectedIndex, trpk_form[i].SelectedIndex, trpk_gender[i].SelectedIndex, trpk_item[i].SelectedIndex, Main.Config);
             pba[i].Image = WinFormsUtil.ScaleImage(rawImg, 2);
         }
-
-        //private void ShowText()
-        //{
-        //    if (index * 2 >= trText.Length) return;
-        //    TB_Text1.Text = trText[index * 2];
-        //    TB_Text2.Text = trText[(index * 2) + 1];
-        //}
 
         private void Setup()
         {
@@ -434,7 +439,7 @@ namespace pk3DS
                 ? new[] { 15, 18, 80, 208, 254, 260, 302, 319, 323, 334, 362, 373, 376, 380, 381, 428, 475, 531, 719, 3, 6, 9, 65, 94, 115, 127, 130, 142, 150, 181, 212, 214, 229, 248, 257, 282, 303, 306, 308, 310, 354, 359, 445, 448, 460 }
                 : new[] { 3, 6, 9, 65, 94, 115, 127, 130, 142, 150, 181, 212, 214, 229, 248, 257, 282, 303, 306, 308, 310, 354, 359, 445, 448, 460 };
 
-            CB_TrainerID.SelectedIndex = 1;
+            CB_TrainerID.SelectedIndex = 37; //Youngster Austin, for testing conveniency
             start = false;
             ReadFile();
         }
@@ -494,7 +499,8 @@ namespace pk3DS
                 if (mEvoTypes.Length < 13 && rTypeTheme)
                 {
                     WinFormsUtil.Alert("There are insufficient Types with at least one mega evolution to Guarantee story Mega Evos while keeping Type theming.",
-                    "Re-Randomize Personal or don't choose both options."); return; }
+                    "Re-Randomize Personal or don't choose both options."); return;
+                }
                 GymE4Types.AddRange(mEvoTypes);
             }
             else
@@ -541,7 +547,7 @@ namespace pk3DS
             ushort[] itemvals = Main.Config.ORAS ? Legal.Pouch_Items_AO : Legal.Pouch_Items_XY;
             itemvals = itemvals.Concat(Legal.Pouch_Berry_XY).ToArray();
 
-            string[] ImportantClasses = {"GYM", "ELITE", "CHAMPION"};
+            string[] ImportantClasses = { "GYM", "ELITE", "CHAMPION" };
             for (int i = 1; i < CB_TrainerID.Items.Count; i++)
             {
                 // Trainer Type/Mega Evo
@@ -726,7 +732,7 @@ namespace pk3DS
 
             if (rClass && rModelRestricted.Contains(t.Class) && !rIgnoreClass.Contains(t.Class)) // shuffle classes with 3D models
             {
-                int randClass() => (int) (Rand() % rModelRestricted.Length);
+                int randClass() => (int)(Rand() % rModelRestricted.Length);
                 t.Class = rModelRestricted[randClass()];
             }
             else
@@ -934,7 +940,7 @@ namespace pk3DS
             if (rTags[trainer].Length != 0)
                 return TagTypes[rTags[trainer]];
             if (!rEnsureMEvo.Contains(trainer))
-                return (int)(Rand()%types.Length);
+                return (int)(Rand() % types.Length);
             return mEvoTypes[Rand() % mEvoTypes.Length];
         }
 
@@ -961,7 +967,327 @@ namespace pk3DS
         private void GotoParty(object sender, EventArgs e)
         {
             // When sprite is clicked, jump to that Pokémon.
-            tabControl1.SelectedIndex = 1 + Array.IndexOf(new[]{PB_Team1, PB_Team2, PB_Team3, PB_Team4, PB_Team5, PB_Team6,}, sender as PictureBox);
+            TabControl.SelectedIndex = 1 + Array.IndexOf(new[] { PB_Team1, PB_Team2, PB_Team3, PB_Team4, PB_Team5, PB_Team6, }, sender as PictureBox);
+        }
+
+        private void B_Export_Calc(object sender, EventArgs e)
+        {
+            if (DialogResult.Yes != WinFormsUtil.Prompt(MessageBoxButtons.YesNo, "Export Trainers in Showdown Calc format?"))
+                return;
+
+            ExportFormattedSetsTxt sets = new();
+
+            Dictionary<string, int> trainerAppearanceIndexes = new();
+            int rivalIdx = 0;
+
+            for (int i = 0; i < AXHelpers.AXTrainerIndexes.Length; i++)
+            {
+                CB_TrainerID.SelectedIndex = AXHelpers.AXTrainerIndexes[i];
+                //CB_AI.SelectedIndex = 1;
+
+                ExportTrainerDataTxt[] exportData = new ExportTrainerDataTxt[CB_numPokemon.SelectedIndex];
+
+                string trShortenedName = CB_TrainerID.Text.Substring(0, CB_TrainerID.Text.Length - 6);
+
+                if (!trainerAppearanceIndexes.ContainsKey(trShortenedName))
+                {
+                    trainerAppearanceIndexes.Add(trShortenedName, 0);
+
+                    if (trShortenedName == "Serena" ||
+                        trShortenedName == "Calem")
+                    {
+                        trShortenedName += " " + trainerAppearanceIndexes[trShortenedName] + "-" + (rivalIdx + 1);
+                        rivalIdx++;
+                    }
+                }
+                else if (trShortenedName == "Serena" ||
+                         trShortenedName == "Calem")
+                {
+                    string oldShortName = trShortenedName;
+                    trShortenedName += " " + trainerAppearanceIndexes[trShortenedName] + "-" + (rivalIdx + 1);
+
+                    rivalIdx++;
+                    if (rivalIdx == 3)
+                        trainerAppearanceIndexes[oldShortName]++;
+                    rivalIdx %= 3;
+                }
+                else
+                {
+                    trShortenedName += " " + ++trainerAppearanceIndexes[trShortenedName];
+                }
+
+                for (int j = 0; j < exportData.Length; j++)
+                {
+                    exportData[j] = new()
+                    {
+                        TrainerID = CB_TrainerID.SelectedIndex,
+                        AI = CB_AI.SelectedIndex,
+                        BattleType = CB_Battle_Type.Text + "s",
+                        RewardItem = "-",
+                        //Sprite = "-", // Deprecated, was planning on mapping in AXHelpers
+
+                        PartyPosition = j,
+                        Level = trpk_lvl[j].SelectedIndex,
+                        Form = trpk_form[j].SelectedIndex,
+                        Gender = trpk_gender[j].SelectedIndex == 0 ? "" : (trpk_gender[j].SelectedIndex == 1 ? "M" : "F"),
+                        HeldItem = trpk_item[j].Text != "" ? trpk_item[j].Text : "-",
+                        Nature = trpk_nature[j].Text.Substring(0, trpk_nature[j].Text.IndexOf("(") - 1),
+                        Ability = trpk_abil[j].Text.Substring(0, trpk_abil[j].Text.IndexOf("(") - 1)
+                    };
+
+                    exportData[j].Moves[0] = trpk_m1[j].Text;
+                    exportData[j].Moves[1] = trpk_m2[j].Text;
+                    exportData[j].Moves[2] = trpk_m3[j].Text;
+                    exportData[j].Moves[3] = trpk_m4[j].Text;
+
+                    int calculatedIV = trpk_IV[j].SelectedIndex & 0x1F;
+                    exportData[j].IVs.Add("hp", calculatedIV);
+                    exportData[j].IVs.Add("at", calculatedIV);
+                    exportData[j].IVs.Add("df", calculatedIV);
+                    exportData[j].IVs.Add("sa", calculatedIV);
+                    exportData[j].IVs.Add("sd", calculatedIV);
+                    exportData[j].IVs.Add("sp", calculatedIV);
+
+                    string pkmName = trpk_pkm[j].Text;
+
+                    if (pkmName == "Aegislash")
+                    {
+                        pkmName = AXHelpers.AXPokemonFormNames[pkmName];
+                    }
+                    else if (exportData[j].Form > 0)
+                    {
+                        string pkmFormName = pkmName + " " + exportData[j].Form;
+                        if (AXHelpers.AXPokemonFormNames.ContainsKey(pkmFormName))
+                            pkmName = AXHelpers.AXPokemonFormNames[pkmFormName];
+                    }
+                    else if (exportData[j].HeldItem == "Megite X" ||
+                             exportData[j].HeldItem == "Megite Y")
+                    {
+                        int formIndex = 1;
+                        if (pkmName == "Charizard" || pkmName == "Mewtwo")
+                        {
+                            if (exportData[j].HeldItem == "Megite X")
+                                pkmName += "-Mega-X";
+                            else
+                            {
+                                pkmName += "-Mega-Y";
+                                formIndex = 2;
+                            }
+                        }
+                        else
+                        {
+                            pkmName += "-Mega";
+                        }
+
+                        int entry = Main.Config.Personal.GetFormIndex(trpk_pkm[j].SelectedIndex, trpk_form[j].SelectedIndex + formIndex);
+                        exportData[j].Ability = abilitylist[Main.SpeciesStat[entry].Abilities[0]];
+                    }
+
+                    if (!sets.TrPokemonList.ContainsKey(pkmName))
+                        sets.TrPokemonList.Add(pkmName, new());
+
+                    string levelName = $"Lvl {trpk_lvl[j].SelectedIndex} {trShortenedName} ";
+
+                    try
+                    {
+                        sets.TrPokemonList[pkmName].Add(levelName, exportData[j]);
+                    }
+                    // Duplicate Key Error - This hack will only work for 2 duplicate mons, not 3+
+                    catch (ArgumentException)
+                    {
+                        ExportTrainerDataTxt tempETD = sets.TrPokemonList[pkmName][levelName];
+                        sets.TrPokemonList[pkmName].Remove(levelName);
+
+                        sets.TrPokemonList[pkmName].Add(tempETD.Gender + " " + levelName, tempETD);
+                        sets.TrPokemonList[pkmName].Add(exportData[j].Gender + " " + levelName, exportData[j]);
+                    }
+                }
+            }
+
+            SaveFileDialog sfd = new() { FileName = "Trainers - Showdown Calc.json", Filter = "JSON|*.json" };
+            SystemSounds.Asterisk.Play();
+
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                string path = sfd.FileName;
+                string json = JsonSerializer.Serialize(sets);
+                File.WriteAllText(path, json);
+            }
+        }
+
+        private void B_Export_Site(object sender, EventArgs e)
+        {
+            if (DialogResult.Yes != WinFormsUtil.Prompt(MessageBoxButtons.YesNo, "Export Trainers for Site?"))
+                return;
+
+            Dictionary<string, ExportTrSite> trDict = new();
+            Dictionary<string, int> trainerAppearanceIndexes = new();
+            int rivalIdx = 0;
+
+            for (int i = 0; i < AXHelpers.AXTrainerIndexes.Length; i++)
+            {
+                CB_TrainerID.SelectedIndex = AXHelpers.AXTrainerIndexes[i];
+
+                string trShortenedName = CB_TrainerID.Text.Substring(0, CB_TrainerID.Text.Length - 6);
+
+                if (!trainerAppearanceIndexes.ContainsKey(trShortenedName))
+                {
+                    trainerAppearanceIndexes.Add(trShortenedName, 0);
+
+                    if (trShortenedName == "Serena" ||
+                        trShortenedName == "Calem")
+                    {
+                        trShortenedName += " " + trainerAppearanceIndexes[trShortenedName] + "-" + (rivalIdx + 1);
+                        rivalIdx++;
+                    }
+                }
+                else if (trShortenedName == "Serena" ||
+                         trShortenedName == "Calem")
+                {
+                    string oldShortName = trShortenedName;
+                    trShortenedName += " " + trainerAppearanceIndexes[trShortenedName] + "-" + (rivalIdx + 1);
+
+                    rivalIdx++;
+                    if (rivalIdx == 3)
+                        trainerAppearanceIndexes[oldShortName]++;
+                    rivalIdx %= 3;
+                }
+                else
+                {
+                    trShortenedName += " " + ++trainerAppearanceIndexes[trShortenedName];
+                }
+
+                ExportTrSite tr = new()
+                {
+                    TrainerID = CB_TrainerID.SelectedIndex,
+                    TrainerClass = CB_Trainer_Class.SelectedItem.ToString(),
+                    BattleType = CB_Battle_Type.SelectedItem.ToString(),
+                };
+
+                for (int j = 0; j < CB_numPokemon.SelectedIndex; j++)
+                {
+                    ExportTrPkmSite trPkm = new()
+                    {
+                        Name = trpk_pkm[j].Text.Replace("’", "'"),
+                        Form = trpk_form[j].Text,
+                        Gender = trpk_gender[j].Text,
+                        Level = trpk_lvl[j].SelectedIndex,
+                        Ability = trpk_abil[j].Text,
+                        HeldItem = trpk_item[j].Text.Replace("’", "'"),
+                        Nature = trpk_nature[j].Text,
+                        IVs = trpk_IV[j].SelectedIndex & 0x1F
+                    };
+
+                    trPkm.Moves[0] = trpk_m1[j].Text.Replace("’", "'");
+                    trPkm.Moves[1] = trpk_m2[j].Text.Replace("’", "'");
+                    trPkm.Moves[2] = trpk_m3[j].Text.Replace("’", "'");
+                    trPkm.Moves[3] = trpk_m4[j].Text.Replace("’", "'");
+
+                    tr.Pokemon.Add(trPkm);
+                }
+
+                trDict.Add(trShortenedName, tr);
+            }
+
+            SaveFileDialog sfd = new() { FileName = "trainers.json", Filter = "JSON|*.json" };
+            SystemSounds.Asterisk.Play();
+
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                string path = sfd.FileName;
+                string json = JsonSerializer.Serialize(trDict);
+                File.WriteAllText(path, json);
+            }
+        }
+
+        private NatureViewer NatureViewer;
+
+        private void CalculateNature(object sender, EventArgs e)
+        {
+            if (loading)
+                return;
+
+            ComboBox source = sender as ComboBox;
+
+            if (source == CB_Trainer_Class)
+            {
+                for (int i = 0; i < 6; i++)
+                    SetNatureString(i);
+            }
+            else
+            {
+                int index = new[] { Array.IndexOf(trpk_pkm, source), Array.IndexOf(trpk_IV, source), Array.IndexOf(trpk_lvl, source) }.Max();
+
+                SetNatureString(index);
+
+                if (NatureViewer != null)
+                {
+                    int species = trpk_pkm[index].SelectedIndex;
+                    int level = trpk_lvl[index].SelectedIndex;
+                    int tr_class = CB_Trainer_Class.SelectedIndex;
+
+                    NatureViewer.Invoke((MethodInvoker)delegate
+                    {
+                        NatureViewer.Reload(species, level, tr_class);
+                    });
+                }
+            }
+        }
+
+        private void SetNatureString(int pkmIndex)
+        {
+            int species = trpk_pkm[pkmIndex].SelectedIndex;
+            int level = trpk_lvl[pkmIndex].SelectedIndex;
+            int IVs = trpk_IV[pkmIndex].SelectedIndex;
+            int tr_class = CB_Trainer_Class.SelectedIndex;
+
+            uint nature = NatureCalculation.GetNature(species, level, IVs, tr_class);
+            trpk_nature[pkmIndex].Text = NatureCalculation.GetNatureString(nature);
+            trpk_nature[pkmIndex].BackColor = NatureCalculation.GetNatureColor(nature);
+        }
+
+        private void B_NatureMap_Click(object sender, EventArgs e)
+        {
+            bool parsed = int.TryParse(TabControl.SelectedTab.Name[^1..], out int tabIndex);
+            if (!parsed)
+            {
+                MessageBox.Show("Must select one of the Pokemon Tabs.", "Error");
+                return;
+            }
+
+            int pkmSlot = tabIndex - 1;
+
+            int species = trpk_pkm[pkmSlot].SelectedIndex;
+            int level = trpk_lvl[pkmSlot].SelectedIndex;
+            int tr_class = CB_Trainer_Class.SelectedIndex;
+
+            new Thread(() => OpenNatureMap(species, level, tr_class)).Start();
+        }
+
+        private void OpenNatureMap(int species, int level, int tr_class)
+        {
+            NatureViewer = new NatureViewer(4, species, level, tr_class);
+            NatureViewer.ShowDialog();
+            NatureViewer = null;
+        }
+
+        private void ReloadNatureMap(object sender, EventArgs e)
+        {
+            bool parsed = int.TryParse(TabControl.SelectedTab.Name[^1..], out int tabIndex);
+
+            if (NatureViewer == null || !parsed || tabIndex > tr.NumPokemon)
+                return;
+
+            int pkmSlot = tabIndex - 1;
+
+            int species = trpk_pkm[pkmSlot].SelectedIndex;
+            int level = trpk_lvl[pkmSlot].SelectedIndex;
+            int tr_class = CB_Trainer_Class.SelectedIndex;
+
+            NatureViewer.Invoke((MethodInvoker)delegate
+            {
+                NatureViewer.Reload(species, level, tr_class);
+            });
         }
     }
 }

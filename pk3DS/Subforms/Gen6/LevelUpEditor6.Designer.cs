@@ -28,317 +28,322 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dgv = new System.Windows.Forms.DataGridView();
-            this.CB_Species = new System.Windows.Forms.ComboBox();
-            this.L_Species = new System.Windows.Forms.Label();
-            this.B_RandAll = new System.Windows.Forms.Button();
-            this.B_Dump = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.CHK_NoFixedDamage = new System.Windows.Forms.CheckBox();
-            this.CHK_4MovesLvl1 = new System.Windows.Forms.CheckBox();
-            this.L_Moves = new System.Windows.Forms.Label();
-            this.NUD_Moves = new System.Windows.Forms.NumericUpDown();
-            this.CHK_Expand = new System.Windows.Forms.CheckBox();
-            this.L_Scale2 = new System.Windows.Forms.Label();
-            this.NUD_Level = new System.Windows.Forms.NumericUpDown();
-            this.L_Scale1 = new System.Windows.Forms.Label();
-            this.CHK_Spread = new System.Windows.Forms.CheckBox();
-            this.L_STAB = new System.Windows.Forms.Label();
-            this.NUD_STAB = new System.Windows.Forms.NumericUpDown();
-            this.CHK_STAB = new System.Windows.Forms.CheckBox();
-            this.CHK_HMs = new System.Windows.Forms.CheckBox();
-            this.PB_MonSprite = new System.Windows.Forms.PictureBox();
-            this.B_Metronome = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NUD_Moves)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NUD_Level)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NUD_STAB)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PB_MonSprite)).BeginInit();
-            this.SuspendLayout();
+            dgv = new System.Windows.Forms.DataGridView();
+            CB_Species = new System.Windows.Forms.ComboBox();
+            L_Species = new System.Windows.Forms.Label();
+            B_RandAll = new System.Windows.Forms.Button();
+            B_Dump = new System.Windows.Forms.Button();
+            groupBox1 = new System.Windows.Forms.GroupBox();
+            CHK_NoFixedDamage = new System.Windows.Forms.CheckBox();
+            CHK_4MovesLvl1 = new System.Windows.Forms.CheckBox();
+            L_Moves = new System.Windows.Forms.Label();
+            NUD_Moves = new System.Windows.Forms.NumericUpDown();
+            CHK_Expand = new System.Windows.Forms.CheckBox();
+            L_Scale2 = new System.Windows.Forms.Label();
+            NUD_Level = new System.Windows.Forms.NumericUpDown();
+            L_Scale1 = new System.Windows.Forms.Label();
+            CHK_Spread = new System.Windows.Forms.CheckBox();
+            L_STAB = new System.Windows.Forms.Label();
+            NUD_STAB = new System.Windows.Forms.NumericUpDown();
+            CHK_STAB = new System.Windows.Forms.CheckBox();
+            CHK_HMs = new System.Windows.Forms.CheckBox();
+            PB_MonSprite = new System.Windows.Forms.PictureBox();
+            B_Metronome = new System.Windows.Forms.Button();
+            button1 = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)dgv).BeginInit();
+            groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)NUD_Moves).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)NUD_Level).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)NUD_STAB).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PB_MonSprite).BeginInit();
+            SuspendLayout();
             // 
             // dgv
             // 
-            this.dgv.AllowUserToResizeColumns = false;
-            this.dgv.AllowUserToResizeRows = false;
-            this.dgv.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv.Location = new System.Drawing.Point(4, 41);
-            this.dgv.Name = "dgv";
-            this.dgv.Size = new System.Drawing.Size(282, 359);
-            this.dgv.TabIndex = 0;
+            dgv.AllowUserToResizeColumns = false;
+            dgv.AllowUserToResizeRows = false;
+            dgv.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgv.Location = new System.Drawing.Point(5, 47);
+            dgv.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            dgv.Name = "dgv";
+            dgv.Size = new System.Drawing.Size(329, 463);
+            dgv.TabIndex = 0;
             // 
             // CB_Species
             // 
-            this.CB_Species.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.CB_Species.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.CB_Species.FormattingEnabled = true;
-            this.CB_Species.Location = new System.Drawing.Point(58, 12);
-            this.CB_Species.Name = "CB_Species";
-            this.CB_Species.Size = new System.Drawing.Size(121, 21);
-            this.CB_Species.TabIndex = 1;
-            this.CB_Species.SelectedIndexChanged += new System.EventHandler(this.ChangeEntry);
+            CB_Species.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            CB_Species.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            CB_Species.FormattingEnabled = true;
+            CB_Species.Location = new System.Drawing.Point(68, 14);
+            CB_Species.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CB_Species.Name = "CB_Species";
+            CB_Species.Size = new System.Drawing.Size(140, 23);
+            CB_Species.TabIndex = 1;
+            CB_Species.SelectedIndexChanged += ChangeEntry;
             // 
             // L_Species
             // 
-            this.L_Species.AutoSize = true;
-            this.L_Species.Location = new System.Drawing.Point(4, 15);
-            this.L_Species.Name = "L_Species";
-            this.L_Species.Size = new System.Drawing.Size(48, 13);
-            this.L_Species.TabIndex = 2;
-            this.L_Species.Text = "Species:";
+            L_Species.AutoSize = true;
+            L_Species.Location = new System.Drawing.Point(5, 17);
+            L_Species.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            L_Species.Name = "L_Species";
+            L_Species.Size = new System.Drawing.Size(49, 15);
+            L_Species.TabIndex = 2;
+            L_Species.Text = "Species:";
             // 
             // B_RandAll
             // 
-            this.B_RandAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.B_RandAll.Location = new System.Drawing.Point(292, 10);
-            this.B_RandAll.Name = "B_RandAll";
-            this.B_RandAll.Size = new System.Drawing.Size(103, 23);
-            this.B_RandAll.TabIndex = 4;
-            this.B_RandAll.Text = "Randomize!";
-            this.B_RandAll.UseVisualStyleBackColor = true;
-            this.B_RandAll.Click += new System.EventHandler(this.B_RandAll_Click);
+            B_RandAll.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            B_RandAll.Location = new System.Drawing.Point(340, 47);
+            B_RandAll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            B_RandAll.Name = "B_RandAll";
+            B_RandAll.Size = new System.Drawing.Size(120, 27);
+            B_RandAll.TabIndex = 4;
+            B_RandAll.Text = "Randomize!";
+            B_RandAll.UseVisualStyleBackColor = true;
+            B_RandAll.Click += B_RandAll_Click;
             // 
             // B_Dump
             // 
-            this.B_Dump.Location = new System.Drawing.Point(240, 10);
-            this.B_Dump.Name = "B_Dump";
-            this.B_Dump.Size = new System.Drawing.Size(46, 23);
-            this.B_Dump.TabIndex = 5;
-            this.B_Dump.Text = "Dump";
-            this.B_Dump.UseVisualStyleBackColor = true;
-            this.B_Dump.Click += new System.EventHandler(this.B_Dump_Click);
+            B_Dump.Location = new System.Drawing.Point(280, 12);
+            B_Dump.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            B_Dump.Name = "B_Dump";
+            B_Dump.Size = new System.Drawing.Size(54, 27);
+            B_Dump.TabIndex = 5;
+            B_Dump.Text = "Dump";
+            B_Dump.UseVisualStyleBackColor = true;
+            B_Dump.Click += B_Dump_Click;
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.CHK_NoFixedDamage);
-            this.groupBox1.Controls.Add(this.CHK_4MovesLvl1);
-            this.groupBox1.Controls.Add(this.L_Moves);
-            this.groupBox1.Controls.Add(this.NUD_Moves);
-            this.groupBox1.Controls.Add(this.CHK_Expand);
-            this.groupBox1.Controls.Add(this.L_Scale2);
-            this.groupBox1.Controls.Add(this.NUD_Level);
-            this.groupBox1.Controls.Add(this.L_Scale1);
-            this.groupBox1.Controls.Add(this.CHK_Spread);
-            this.groupBox1.Controls.Add(this.L_STAB);
-            this.groupBox1.Controls.Add(this.NUD_STAB);
-            this.groupBox1.Controls.Add(this.CHK_STAB);
-            this.groupBox1.Controls.Add(this.CHK_HMs);
-            this.groupBox1.Location = new System.Drawing.Point(296, 65);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(95, 343);
-            this.groupBox1.TabIndex = 6;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Options";
+            groupBox1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            groupBox1.Controls.Add(CHK_NoFixedDamage);
+            groupBox1.Controls.Add(CHK_4MovesLvl1);
+            groupBox1.Controls.Add(L_Moves);
+            groupBox1.Controls.Add(NUD_Moves);
+            groupBox1.Controls.Add(CHK_Expand);
+            groupBox1.Controls.Add(L_Scale2);
+            groupBox1.Controls.Add(NUD_Level);
+            groupBox1.Controls.Add(L_Scale1);
+            groupBox1.Controls.Add(CHK_Spread);
+            groupBox1.Controls.Add(L_STAB);
+            groupBox1.Controls.Add(NUD_STAB);
+            groupBox1.Controls.Add(CHK_STAB);
+            groupBox1.Controls.Add(CHK_HMs);
+            groupBox1.Location = new System.Drawing.Point(340, 107);
+            groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            groupBox1.Size = new System.Drawing.Size(120, 403);
+            groupBox1.TabIndex = 6;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Options";
             // 
             // CHK_NoFixedDamage
             // 
-            this.CHK_NoFixedDamage.AutoSize = true;
-            this.CHK_NoFixedDamage.Checked = true;
-            this.CHK_NoFixedDamage.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.CHK_NoFixedDamage.Location = new System.Drawing.Point(5, 271);
-            this.CHK_NoFixedDamage.Name = "CHK_NoFixedDamage";
-            this.CHK_NoFixedDamage.Size = new System.Drawing.Size(95, 69);
-            this.CHK_NoFixedDamage.TabIndex = 14;
-            this.CHK_NoFixedDamage.Text = "No Fixed\nDamage\nMoves\n(Dragon Rage\n+ Sonic Boom)";
-            this.CHK_NoFixedDamage.UseVisualStyleBackColor = true;
+            CHK_NoFixedDamage.AutoSize = true;
+            CHK_NoFixedDamage.Checked = true;
+            CHK_NoFixedDamage.CheckState = System.Windows.Forms.CheckState.Checked;
+            CHK_NoFixedDamage.Location = new System.Drawing.Point(6, 313);
+            CHK_NoFixedDamage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CHK_NoFixedDamage.Name = "CHK_NoFixedDamage";
+            CHK_NoFixedDamage.Size = new System.Drawing.Size(105, 79);
+            CHK_NoFixedDamage.TabIndex = 14;
+            CHK_NoFixedDamage.Text = "No Fixed\nDamage\nMoves\n(Dragon Rage\n+ Sonic Boom)";
+            CHK_NoFixedDamage.UseVisualStyleBackColor = true;
             // 
             // CHK_4MovesLvl1
             // 
-            this.CHK_4MovesLvl1.AutoSize = true;
-            this.CHK_4MovesLvl1.Location = new System.Drawing.Point(5, 159);
-            this.CHK_4MovesLvl1.Name = "CHK_4MovesLvl1";
-            this.CHK_4MovesLvl1.Size = new System.Drawing.Size(70, 30);
-            this.CHK_4MovesLvl1.TabIndex = 11;
-            this.CHK_4MovesLvl1.Text = "Start with\n4 Moves";
-            this.CHK_4MovesLvl1.UseVisualStyleBackColor = true;
+            CHK_4MovesLvl1.AutoSize = true;
+            CHK_4MovesLvl1.Location = new System.Drawing.Point(6, 183);
+            CHK_4MovesLvl1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CHK_4MovesLvl1.Name = "CHK_4MovesLvl1";
+            CHK_4MovesLvl1.Size = new System.Drawing.Size(76, 34);
+            CHK_4MovesLvl1.TabIndex = 11;
+            CHK_4MovesLvl1.Text = "Start with\n4 Moves";
+            CHK_4MovesLvl1.UseVisualStyleBackColor = true;
             // 
             // L_Moves
             // 
-            this.L_Moves.AutoSize = true;
-            this.L_Moves.Location = new System.Drawing.Point(10, 130);
-            this.L_Moves.Name = "L_Moves";
-            this.L_Moves.Size = new System.Drawing.Size(42, 13);
-            this.L_Moves.TabIndex = 10;
-            this.L_Moves.Text = "Moves:";
+            L_Moves.AutoSize = true;
+            L_Moves.Location = new System.Drawing.Point(12, 150);
+            L_Moves.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            L_Moves.Name = "L_Moves";
+            L_Moves.Size = new System.Drawing.Size(45, 15);
+            L_Moves.TabIndex = 10;
+            L_Moves.Text = "Moves:";
             // 
             // NUD_Moves
             // 
-            this.NUD_Moves.Enabled = false;
-            this.NUD_Moves.Location = new System.Drawing.Point(53, 128);
-            this.NUD_Moves.Maximum = new decimal(new int[] {
-            25,
-            0,
-            0,
-            0});
-            this.NUD_Moves.Minimum = new decimal(new int[] {
-            25,
-            0,
-            0,
-            0});
-            this.NUD_Moves.Name = "NUD_Moves";
-            this.NUD_Moves.Size = new System.Drawing.Size(36, 20);
-            this.NUD_Moves.TabIndex = 9;
-            this.NUD_Moves.Value = new decimal(new int[] {
-            25,
-            0,
-            0,
-            0});
+            NUD_Moves.Enabled = false;
+            NUD_Moves.Location = new System.Drawing.Point(62, 148);
+            NUD_Moves.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            NUD_Moves.Maximum = new decimal(new int[] { 25, 0, 0, 0 });
+            NUD_Moves.Minimum = new decimal(new int[] { 25, 0, 0, 0 });
+            NUD_Moves.Name = "NUD_Moves";
+            NUD_Moves.Size = new System.Drawing.Size(42, 23);
+            NUD_Moves.TabIndex = 9;
+            NUD_Moves.Value = new decimal(new int[] { 25, 0, 0, 0 });
             // 
             // CHK_Expand
             // 
-            this.CHK_Expand.AutoSize = true;
-            this.CHK_Expand.Location = new System.Drawing.Point(5, 110);
-            this.CHK_Expand.Name = "CHK_Expand";
-            this.CHK_Expand.Size = new System.Drawing.Size(86, 17);
-            this.CHK_Expand.TabIndex = 8;
-            this.CHK_Expand.Text = "Expand Pool";
-            this.CHK_Expand.UseVisualStyleBackColor = true;
+            CHK_Expand.AutoSize = true;
+            CHK_Expand.Location = new System.Drawing.Point(6, 127);
+            CHK_Expand.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CHK_Expand.Name = "CHK_Expand";
+            CHK_Expand.Size = new System.Drawing.Size(92, 19);
+            CHK_Expand.TabIndex = 8;
+            CHK_Expand.Text = "Expand Pool";
+            CHK_Expand.UseVisualStyleBackColor = true;
             // 
             // L_Scale2
             // 
-            this.L_Scale2.AutoSize = true;
-            this.L_Scale2.Location = new System.Drawing.Point(2, 242);
-            this.L_Scale2.Name = "L_Scale2";
-            this.L_Scale2.Size = new System.Drawing.Size(50, 13);
-            this.L_Scale2.TabIndex = 7;
-            this.L_Scale2.Text = "@ Level:";
+            L_Scale2.AutoSize = true;
+            L_Scale2.Location = new System.Drawing.Point(2, 279);
+            L_Scale2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            L_Scale2.Name = "L_Scale2";
+            L_Scale2.Size = new System.Drawing.Size(51, 15);
+            L_Scale2.TabIndex = 7;
+            L_Scale2.Text = "@ Level:";
             // 
             // NUD_Level
             // 
-            this.NUD_Level.Location = new System.Drawing.Point(54, 240);
-            this.NUD_Level.Minimum = new decimal(new int[] {
-            16,
-            0,
-            0,
-            0});
-            this.NUD_Level.Name = "NUD_Level";
-            this.NUD_Level.Size = new System.Drawing.Size(36, 20);
-            this.NUD_Level.TabIndex = 6;
-            this.NUD_Level.Value = new decimal(new int[] {
-            75,
-            0,
-            0,
-            0});
+            NUD_Level.Location = new System.Drawing.Point(63, 277);
+            NUD_Level.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            NUD_Level.Minimum = new decimal(new int[] { 16, 0, 0, 0 });
+            NUD_Level.Name = "NUD_Level";
+            NUD_Level.Size = new System.Drawing.Size(42, 23);
+            NUD_Level.TabIndex = 6;
+            NUD_Level.Value = new decimal(new int[] { 75, 0, 0, 0 });
             // 
             // L_Scale1
             // 
-            this.L_Scale1.AutoSize = true;
-            this.L_Scale1.Location = new System.Drawing.Point(5, 224);
-            this.L_Scale1.Name = "L_Scale1";
-            this.L_Scale1.Size = new System.Drawing.Size(73, 13);
-            this.L_Scale1.TabIndex = 5;
-            this.L_Scale1.Text = "Stop Learning";
+            L_Scale1.AutoSize = true;
+            L_Scale1.Location = new System.Drawing.Point(6, 258);
+            L_Scale1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            L_Scale1.Name = "L_Scale1";
+            L_Scale1.Size = new System.Drawing.Size(80, 15);
+            L_Scale1.TabIndex = 5;
+            L_Scale1.Text = "Stop Learning";
             // 
             // CHK_Spread
             // 
-            this.CHK_Spread.AutoSize = true;
-            this.CHK_Spread.Location = new System.Drawing.Point(5, 204);
-            this.CHK_Spread.Name = "CHK_Spread";
-            this.CHK_Spread.Size = new System.Drawing.Size(95, 17);
-            this.CHK_Spread.TabIndex = 4;
-            this.CHK_Spread.Text = "Spread Evenly";
-            this.CHK_Spread.UseVisualStyleBackColor = true;
+            CHK_Spread.AutoSize = true;
+            CHK_Spread.Location = new System.Drawing.Point(6, 235);
+            CHK_Spread.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CHK_Spread.Name = "CHK_Spread";
+            CHK_Spread.Size = new System.Drawing.Size(99, 19);
+            CHK_Spread.TabIndex = 4;
+            CHK_Spread.Text = "Spread Evenly";
+            CHK_Spread.UseVisualStyleBackColor = true;
             // 
             // L_STAB
             // 
-            this.L_STAB.AutoSize = true;
-            this.L_STAB.Location = new System.Drawing.Point(6, 74);
-            this.L_STAB.Name = "L_STAB";
-            this.L_STAB.Size = new System.Drawing.Size(46, 13);
-            this.L_STAB.TabIndex = 3;
-            this.L_STAB.Text = "% STAB";
+            L_STAB.AutoSize = true;
+            L_STAB.Location = new System.Drawing.Point(7, 85);
+            L_STAB.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            L_STAB.Name = "L_STAB";
+            L_STAB.Size = new System.Drawing.Size(46, 15);
+            L_STAB.TabIndex = 3;
+            L_STAB.Text = "% STAB";
             // 
             // NUD_STAB
             // 
-            this.NUD_STAB.Location = new System.Drawing.Point(53, 72);
-            this.NUD_STAB.Minimum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.NUD_STAB.Name = "NUD_STAB";
-            this.NUD_STAB.Size = new System.Drawing.Size(36, 20);
-            this.NUD_STAB.TabIndex = 2;
-            this.NUD_STAB.Value = new decimal(new int[] {
-            52,
-            0,
-            0,
-            0});
+            NUD_STAB.Location = new System.Drawing.Point(62, 83);
+            NUD_STAB.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            NUD_STAB.Minimum = new decimal(new int[] { 5, 0, 0, 0 });
+            NUD_STAB.Name = "NUD_STAB";
+            NUD_STAB.Size = new System.Drawing.Size(42, 23);
+            NUD_STAB.TabIndex = 2;
+            NUD_STAB.Value = new decimal(new int[] { 52, 0, 0, 0 });
             // 
             // CHK_STAB
             // 
-            this.CHK_STAB.AutoSize = true;
-            this.CHK_STAB.Location = new System.Drawing.Point(5, 54);
-            this.CHK_STAB.Name = "CHK_STAB";
-            this.CHK_STAB.Size = new System.Drawing.Size(87, 17);
-            this.CHK_STAB.TabIndex = 1;
-            this.CHK_STAB.Text = "Bias by Type";
-            this.CHK_STAB.UseVisualStyleBackColor = true;
-            this.CHK_STAB.CheckedChanged += new System.EventHandler(this.CHK_TypeBias_CheckedChanged);
+            CHK_STAB.AutoSize = true;
+            CHK_STAB.Location = new System.Drawing.Point(6, 62);
+            CHK_STAB.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CHK_STAB.Name = "CHK_STAB";
+            CHK_STAB.Size = new System.Drawing.Size(90, 19);
+            CHK_STAB.TabIndex = 1;
+            CHK_STAB.Text = "Bias by Type";
+            CHK_STAB.UseVisualStyleBackColor = true;
+            CHK_STAB.CheckedChanged += CHK_TypeBias_CheckedChanged;
             // 
             // CHK_HMs
             // 
-            this.CHK_HMs.AutoSize = true;
-            this.CHK_HMs.Location = new System.Drawing.Point(5, 19);
-            this.CHK_HMs.Name = "CHK_HMs";
-            this.CHK_HMs.Size = new System.Drawing.Size(76, 17);
-            this.CHK_HMs.TabIndex = 0;
-            this.CHK_HMs.Text = "Allow HMs";
-            this.CHK_HMs.UseVisualStyleBackColor = true;
+            CHK_HMs.AutoSize = true;
+            CHK_HMs.Location = new System.Drawing.Point(6, 22);
+            CHK_HMs.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CHK_HMs.Name = "CHK_HMs";
+            CHK_HMs.Size = new System.Drawing.Size(84, 19);
+            CHK_HMs.TabIndex = 0;
+            CHK_HMs.Text = "Allow HMs";
+            CHK_HMs.UseVisualStyleBackColor = true;
             // 
             // PB_MonSprite
             // 
-            this.PB_MonSprite.Location = new System.Drawing.Point(185, 5);
-            this.PB_MonSprite.Name = "PB_MonSprite";
-            this.PB_MonSprite.Size = new System.Drawing.Size(40, 30);
-            this.PB_MonSprite.TabIndex = 90;
-            this.PB_MonSprite.TabStop = false;
+            PB_MonSprite.Location = new System.Drawing.Point(216, 6);
+            PB_MonSprite.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            PB_MonSprite.Name = "PB_MonSprite";
+            PB_MonSprite.Size = new System.Drawing.Size(47, 35);
+            PB_MonSprite.TabIndex = 90;
+            PB_MonSprite.TabStop = false;
             // 
             // B_Metronome
             // 
-            this.B_Metronome.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.B_Metronome.Location = new System.Drawing.Point(292, 36);
-            this.B_Metronome.Name = "B_Metronome";
-            this.B_Metronome.Size = new System.Drawing.Size(103, 23);
-            this.B_Metronome.TabIndex = 91;
-            this.B_Metronome.Text = "Metronome Mode";
-            this.B_Metronome.UseVisualStyleBackColor = true;
-            this.B_Metronome.Click += new System.EventHandler(this.B_Metronome_Click);
+            B_Metronome.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            B_Metronome.Location = new System.Drawing.Point(340, 77);
+            B_Metronome.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            B_Metronome.Name = "B_Metronome";
+            B_Metronome.Size = new System.Drawing.Size(120, 27);
+            B_Metronome.TabIndex = 91;
+            B_Metronome.Text = "Metronome Mode";
+            B_Metronome.UseVisualStyleBackColor = true;
+            B_Metronome.Click += B_Metronome_Click;
+            // 
+            // button1
+            // 
+            button1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            button1.Location = new System.Drawing.Point(340, 12);
+            button1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            button1.Name = "button1";
+            button1.Size = new System.Drawing.Size(120, 27);
+            button1.TabIndex = 92;
+            button1.Text = "Export for Site";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += B_Export_Site;
             // 
             // LevelUpEditor6
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(404, 412);
-            this.Controls.Add(this.B_Metronome);
-            this.Controls.Add(this.PB_MonSprite);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.B_Dump);
-            this.Controls.Add(this.B_RandAll);
-            this.Controls.Add(this.L_Species);
-            this.Controls.Add(this.CB_Species);
-            this.Controls.Add(this.dgv);
-            this.MaximizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(322, 450);
-            this.Name = "LevelUpEditor6";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Level Up Move Editor";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_Closing);
-            ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NUD_Moves)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NUD_Level)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NUD_STAB)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PB_MonSprite)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(471, 513);
+            Controls.Add(button1);
+            Controls.Add(B_Metronome);
+            Controls.Add(PB_MonSprite);
+            Controls.Add(groupBox1);
+            Controls.Add(B_Dump);
+            Controls.Add(B_RandAll);
+            Controls.Add(L_Species);
+            Controls.Add(CB_Species);
+            Controls.Add(dgv);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            MaximizeBox = false;
+            MinimumSize = new System.Drawing.Size(373, 513);
+            Name = "LevelUpEditor6";
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            Text = "Level Up Move Editor";
+            FormClosing += Form_Closing;
+            ((System.ComponentModel.ISupportInitialize)dgv).EndInit();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)NUD_Moves).EndInit();
+            ((System.ComponentModel.ISupportInitialize)NUD_Level).EndInit();
+            ((System.ComponentModel.ISupportInitialize)NUD_STAB).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PB_MonSprite).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -364,5 +369,6 @@
         private System.Windows.Forms.CheckBox CHK_4MovesLvl1;
         private System.Windows.Forms.CheckBox CHK_NoFixedDamage;
         private System.Windows.Forms.Button B_Metronome;
+        private System.Windows.Forms.Button button1;
     }
 }

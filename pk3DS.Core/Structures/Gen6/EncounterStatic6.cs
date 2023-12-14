@@ -64,6 +64,7 @@ namespace pk3DS.Core.Structures
             set => Data[0x6] = (byte)((Data[0x6] & ~0x70) | ((value & 7) << 4));
         }
 
+        // Note: This doesn't work. 3 Perfect IVs are set because the Pokemon belong to the Undiscovered Egg group, which in XY guarantees 3 Perfect IVs. For ORAS, this is changed to be Legendaries and Mythicals (Ultra Beasts too for SuMo+).
         public bool IV3
         {
             get => (Data[0x7] & 1) >> 0 == 1;

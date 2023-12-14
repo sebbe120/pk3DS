@@ -28,6 +28,7 @@ namespace pk3DS.Core
         public static readonly GARCReference[] GARCReference_XY =
         {
             new(005, "movesprite"),
+            new(007, "models"),
             new(012, "encdata"),
             new(038, "trdata"),
             new(039, "trclass"),

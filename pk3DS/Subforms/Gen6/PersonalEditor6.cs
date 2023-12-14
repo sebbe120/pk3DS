@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using pk3DS.Core.Structures.PersonalInfo;
 using pk3DS.Core;
 using pk3DS.Core.Randomizers;
+using pk3DS.Core.Structures.AXExports;
+using System.Text.Json;
 
 namespace pk3DS
 {
@@ -114,7 +116,7 @@ namespace pk3DS
                 Array.Copy(moves, temp_moves, temp_moves.Length);
                 moves = temp_moves;
 
-                string[] temp_species = new string[799]; // 799 species in XY
+                string[] temp_species = new string[species.Length];
                 Array.Copy(species, temp_species, temp_species.Length);
                 species = temp_species;
 
@@ -335,7 +337,7 @@ namespace pk3DS
 
             if (!Main.Config.ORAS) return;
 
-            int[] len = {tutor1.Length, tutor2.Length, tutor3.Length, tutor4.Length};
+            int[] len = { tutor1.Length, tutor2.Length, tutor3.Length, tutor4.Length };
             int ctr = 0;
             for (int i = 0; i < 4; i++)
             {
@@ -484,6 +486,188 @@ namespace pk3DS
             File.WriteAllLines(path, lines, Encoding.Unicode);
         }
 
+        private void B_Dump_TMHM_Click(object sender, EventArgs e)
+        {
+            if (DialogResult.Yes != WinFormsUtil.Prompt(MessageBoxButtons.YesNo, "Dump all Personal TM/HMs to Text File?"))
+                return;
+
+            dumping = true;
+            string result = "#\tPokemon\tTM/HM" + Environment.NewLine;
+            for (int i = 1; i < CB_Species.Items.Count; i++)
+            {
+                CB_Species.SelectedIndex = i; // Get new Species
+                result += entry + "\t" + CB_Species.Text.Substring(0, CB_Species.Text.Length - 6) + Environment.NewLine;
+                for (int j = 0; j < CLB_TMHM.Items.Count; j++)
+                    if (CLB_TMHM.GetItemChecked(j))
+                        result += $"\t\t{CLB_TMHM.Items[j]}{Environment.NewLine}";
+                for (int j = 0; j < CLB_MoveTutors.Items.Count; j++)
+                    if (CLB_MoveTutors.GetItemChecked(j))
+                        result += $"\t\t{CLB_MoveTutors.Items[j]}{Environment.NewLine}";
+            }
+            SaveFileDialog sfd = new SaveFileDialog { FileName = "TMHMs.txt", Filter = "Text File|*.txt" };
+
+            SystemSounds.Asterisk.Play();
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                string path = sfd.FileName;
+                File.WriteAllText(path, result, Encoding.Unicode);
+            }
+            dumping = false;
+        }
+
+        private void B_Export_Calc(object sender, EventArgs e)
+        {
+            if (DialogResult.Yes != WinFormsUtil.Prompt(MessageBoxButtons.YesNo, "Export Pokemon in Showdown Calc format?"))
+                return;
+
+            ExportPokemonListTxt pkmList = new();
+
+            for (int i = 1; i < CB_Species.Items.Count; i++)
+            {
+                CB_Species.SelectedIndex = i;
+
+                string pkmName = ((string)CB_Species.SelectedItem).Substring(0, ((string)CB_Species.SelectedItem).Length - 6);
+
+                if (AXHelpers.AXPokemonFormNames.ContainsKey(pkmName))
+                {
+                    pkmName = AXHelpers.AXPokemonFormNames[pkmName];
+                }
+                else if (pkmName.Substring(pkmName.Length - 1) == "1")
+                    pkmName = pkmName.Substring(0, pkmName.Length - 2) + "-Mega";
+
+                ExportPokemonTxt ep = new()
+                {
+                    Types = new string[2] { (string)CB_Type1.SelectedItem, (string)CB_Type2.SelectedItem },
+                    Abilities = new string[3] { (string)CB_Ability1.SelectedItem, (string)CB_Ability2.SelectedItem, (string)CB_Ability3.SelectedItem }
+                };
+
+                if (CB_Type1.SelectedItem == CB_Type2.SelectedItem)
+                    ep.Types = new string[1] { (string)CB_Type1.SelectedItem };
+
+                ep.BaseStats.Add("hp", Convert.ToInt32(TB_BaseHP.Text));
+                ep.BaseStats.Add("at", Convert.ToInt32(TB_BaseATK.Text));
+                ep.BaseStats.Add("df", Convert.ToInt32(TB_BaseDEF.Text));
+                ep.BaseStats.Add("sa", Convert.ToInt32(TB_BaseSPA.Text));
+                ep.BaseStats.Add("sd", Convert.ToInt32(TB_BaseSPD.Text));
+                ep.BaseStats.Add("sp", Convert.ToInt32(TB_BaseSPE.Text));
+
+                pkmList.PokemonList.Add(pkmName, ep);
+            }
+
+            SaveFileDialog sfd = new() { FileName = "Pokemon+Abilities - Showdown Calc.json", Filter = "JSON|*.json" };
+            SystemSounds.Asterisk.Play();
+
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                string path = sfd.FileName;
+                string json = JsonSerializer.Serialize(pkmList);
+                File.WriteAllText(path, json);
+            }
+        }
+
+        private void B_Export_Site(object sender, EventArgs e)
+        {
+            if (DialogResult.Yes != WinFormsUtil.Prompt(MessageBoxButtons.YesNo, "Export Pokemon for Site?"))
+                return;
+
+            Dictionary<string, ExportPokemonSite> pkmDict = new();
+
+            for (int i = 1; i < CB_Species.Items.Count; i++)
+            {
+                CB_Species.SelectedIndex = i;
+
+                string pkmName = AXHelpers.GetJSONPkmName(CB_Species, true);
+
+                if ((pkmName.StartsWith("Furfrou") && pkmName != "Furfrou") ||
+                    (pkmName.StartsWith("Floette") && pkmName != "Floette"))
+                    continue;
+
+                ExportPokemonSite pkm = new()
+                {
+                    SpeciesIdx = i <= 721 ? i : pkmDict[pkmName.Substring(0, pkmName.IndexOf("-"))].SpeciesIdx,
+                    Type1 = CB_Type1.Text,
+                    Type2 = CB_Type2.Text,
+                    Ability1 = CB_Ability1.Text,
+                    Ability2 = CB_Ability2.Text,
+                    AbilityH = CB_Ability3.Text,
+                    BaseStats = new()
+                    {
+                        { "HP", int.Parse(TB_BaseHP.Text) },
+                        { "Atk", int.Parse(TB_BaseATK.Text) },
+                        { "Def", int.Parse(TB_BaseDEF.Text) },
+                        { "SpA", int.Parse(TB_BaseSPA.Text) },
+                        { "SpD", int.Parse(TB_BaseSPD.Text) },
+                        { "Spe", int.Parse(TB_BaseSPE.Text) }
+                    },
+                    CatchRate = int.Parse(TB_CatchRate.Text),
+                    BaseXP = int.Parse(TB_BaseExp.Text),
+                    GrowthRate = CB_EXPGroup.Text
+                };
+
+                for (int j = 0; j < CLB_TMHM.Items.Count; j++)
+                    if (CLB_TMHM.GetItemChecked(j))
+                    {
+                        string tmString = CLB_TMHM.Items[j].ToString();
+                        ExportPokemonTM tm = new()
+                        {
+                            Label = tmString.Substring(0, tmString.IndexOf(" ")),
+                            Move = tmString.Substring(tmString.IndexOf(" ") + 1).Replace("’", "'")
+                    };
+
+                        pkm.TMs.Add(tm);
+                    }
+                for (int j = 0; j < CLB_MoveTutors.Items.Count; j++)
+                    if (CLB_MoveTutors.GetItemChecked(j))
+                    {
+                        string tmString = CLB_MoveTutors.Items[j].ToString();
+                        ExportPokemonTM tm = new()
+                        {
+                            Label = "Tutor",
+                            Move = tmString.Replace("’", "'")
+                    };
+
+                        pkm.TMs.Add(tm);
+                    }
+
+                pkmDict.Add(pkmName, pkm);
+            }
+
+            SaveFileDialog sfd = new() { FileName = "pokemon.json", Filter = "JSON|*.json" };
+            SystemSounds.Asterisk.Play();
+
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                string path = sfd.FileName;
+                string json = JsonSerializer.Serialize(pkmDict);
+                File.WriteAllText(path, json);
+            }
+        }
+
+        private void B_Edit_XP_Click(object sender, EventArgs e)
+        {
+            if (N_XP_Mod.Value < 0 ||
+                N_XP_Mod.Value > 3)
+            {
+                WinFormsUtil.Alert("XP Modifier must be between 0 and 3");
+                return;
+            }
+
+            if (DialogResult.Yes != WinFormsUtil.Prompt(MessageBoxButtons.YesNo, "This will edit the base XP for ALL Pokemon. Are you sure you want to continue?"))
+                return;
+
+            for (int i = 1; i < CB_Species.Items.Count; i++)
+            {
+                CB_Species.SelectedIndex = i; // Get new Species
+
+                int xpVal = int.Parse(TB_BaseExp.Text);
+                decimal xpModVal = N_XP_Mod.Value;
+
+                int newXPVal = Convert.ToInt32(Math.Round(xpVal * xpModVal));
+
+                TB_BaseExp.Text = Convert.ToString(newXPVal);
+            }
+        }
+
         private void CHK_Stats_CheckedChanged(object sender, EventArgs e)
         {
             L_StatDev.Visible = NUD_StatDev.Visible = CHK_Stats.Checked;
@@ -501,6 +685,21 @@ namespace pk3DS
         {
             if (entry > -1) SaveEntry();
             RandSettings.SetFormSettings(this, TP_Randomizer.Controls);
+        }
+
+        private void B_ChangeGroup_Click(object sender, EventArgs e)
+        {
+            int xpGroup = CB_EXPGroup.SelectedIndex;
+
+            if (DialogResult.Yes != WinFormsUtil.Prompt(MessageBoxButtons.YesNo, "This will edit the XP Group for ALL Pokemon. Are you sure you want to continue?"))
+                return;
+
+            for (int i = 1; i < CB_Species.Items.Count; i++)
+            {
+                CB_Species.SelectedIndex = i;
+
+                CB_EXPGroup.SelectedIndex = xpGroup;
+            }
         }
     }
 }

@@ -3,6 +3,11 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 using pk3DS.Core.Structures;
+using System.Media;
+using System.Text.Json;
+using System.IO;
+using pk3DS.Core.Structures.AXExports;
+using System.Collections.Generic;
 
 namespace pk3DS
 {
@@ -16,6 +21,23 @@ namespace pk3DS
             InitializeComponent();
             Setup();
             RandSettings.GetFormSettings(this, groupBox1.Controls);
+
+            /*System.Collections.Generic.Dictionary<string, int> moveSort = new();
+            for (int i = 0; i < files.Length; i++)
+            {
+                byte[] data = files[i];
+                moveSort.Add(movelist[i], data[3]); // Power
+                //moveSort.Add(movelist[i], BitConverter.ToUInt16(data, 16)); // Effect Code
+                //System.Diagnostics.Debug.WriteLine($"Move: {movelist[i], 15}\tEffect Code: {BitConverter.ToUInt16(data, 0x10)}");
+            }
+            var mSortlist = moveSort.ToList();
+            mSortlist.Sort((kv1, kv2) => kv1.Value.CompareTo(kv2.Value));
+
+            for (int i = 1; i < mSortlist.Count; i++)
+            {
+                System.Diagnostics.Debug.WriteLine($"Move: {mSortlist[i].Key, 15}\tPow: {mSortlist[i].Value}");
+                //System.Diagnostics.Debug.WriteLine($"Move: {mSortlist[i].Key, 15}\tEC: {mSortlist[i].Value}");
+            }*/
         }
 
         private readonly byte[][] files;
@@ -158,7 +180,7 @@ namespace pk3DS
                 uint flagval = 0;
                 for (int i = 0; i < CLB_Flags.Items.Count; i++)
                     flagval |= CLB_Flags.GetItemChecked(i) ? 1u << i : 0;
-                BitConverter.GetBytes(flagval).CopyTo(data, 0x1E);
+                BitConverter.GetBytes(flagval).CopyTo(data, 0x20);
             }
             files[entry] = data;
         }
@@ -218,6 +240,74 @@ namespace pk3DS
             }
             CB_Move.SelectedIndex = 0;
             WinFormsUtil.Alert("All Moves have had their Base PP values modified!");
+        }
+
+        private void B_ExportCalc_Click(object sender, EventArgs e)
+        {
+            if (DialogResult.Yes != WinFormsUtil.Prompt(MessageBoxButtons.YesNo, "Export Moves in Showdown Calc format?"))
+                return;
+
+            ExportMoveListTxt moveList = new();
+
+            for (int i = 0; i < CB_Move.Items.Count; i++)
+            {
+                CB_Move.SelectedIndex = i;
+
+                string name = (string)CB_Move.SelectedItem;
+                string type = (string)CB_Type.SelectedItem;
+                int basePower = (int)NUD_Power.Value;
+                string category = (string)CB_Category.SelectedItem;
+                int[] multihit = new int[2] { (int)NUD_HitMin.Value, (int)NUD_HitMax.Value };
+
+                moveList.MoveList.Add(name, new ExportMoveTxt(type, basePower, category, multihit));
+            }
+
+            SaveFileDialog sfd = new() { FileName = "Moves - Showdown Calc.json", Filter = "JSON|*.json" };
+            SystemSounds.Asterisk.Play();
+
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                string path = sfd.FileName;
+                string json = JsonSerializer.Serialize(moveList);
+
+                File.WriteAllText(path, json);
+            }
+        }
+
+        private void B_Export_Site(object sender, EventArgs e)
+        {
+            if (DialogResult.Yes != WinFormsUtil.Prompt(MessageBoxButtons.YesNo, "Export Moves for Site?"))
+                return;
+
+            Dictionary<string, ExportMoveDataSite> moveList = new();
+
+            for (int i = 0; i < CB_Move.Items.Count; i++)
+            {
+                CB_Move.SelectedIndex = i;
+
+                ExportMoveDataSite move = new()
+                {
+                    Type = CB_Type.Text.Replace("’", "'"),
+                    Category = CB_Category.Text,
+                    Power = (int)NUD_Power.Value,
+                    Acc = (int)NUD_Accuracy.Value,
+                    PP = (int)NUD_PP.Value,
+                    Description = RTB.Text.Replace("’", "'")
+                };
+
+                moveList.Add(CB_Move.Text.Replace("’", "'"), move);
+            }
+
+            SaveFileDialog sfd = new() { FileName = "moves.json", Filter = "JSON|*.json" };
+            SystemSounds.Asterisk.Play();
+
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                string path = sfd.FileName;
+                string json = JsonSerializer.Serialize(moveList);
+
+                File.WriteAllText(path, json);
+            }
         }
     }
 }

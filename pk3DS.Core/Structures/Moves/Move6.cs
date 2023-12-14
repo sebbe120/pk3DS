@@ -38,6 +38,7 @@ namespace pk3DS.Core.Structures
         public override int Stat2Percent { get => Data[0x1C]; set => Data[0x1C] = (byte)value; }
         public override int Stat3Percent { get => Data[0x1D]; set => Data[0x1D] = (byte)value; }
 
-        public MoveFlag6 Flags { get => (MoveFlag6)BitConverter.ToUInt32(Data, 0x1E); set => BitConverter.GetBytes((uint)value).CopyTo(Data, 0x1E); }
+        //Skip 0x1E and 0x1F, they're always the same value of 0x53
+        public MoveFlag6 Flags { get => (MoveFlag6)BitConverter.ToUInt32(Data, 0x20); set => BitConverter.GetBytes((uint)value).CopyTo(Data, 0x20); }
     }
 }

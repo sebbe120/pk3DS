@@ -127,7 +127,8 @@ namespace pk3DS
 
         private void SetEntry()
         {
-            if (entry < 1 || entry == 384) return; // Don't edit invalid / Rayquaza.
+            // Removed Rayquaza restriction as AX treats it as a standard Mega
+            if (entry < 1) return; // Don't edit invalid
             for (int i = 0; i < 3; i++)
             {
                 if (me.Method[i] > 1)

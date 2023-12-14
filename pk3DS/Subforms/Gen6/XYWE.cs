@@ -442,7 +442,17 @@ namespace pk3DS
         private static byte[] MakeSlotData(int species, int f, int lo, int hi)
         {
             byte[] data = new byte[4];
-            Array.Copy(BitConverter.GetBytes(Convert.ToUInt16((Convert.ToUInt16(f) << 11) + Convert.ToUInt16(species))), 0, data, 0, 2);
+            try
+            {
+                Array.Copy(BitConverter.GetBytes(Convert.ToUInt16((Convert.ToUInt16(f) << 11) + Convert.ToUInt16(species))), 0, data, 0, 2);
+            }
+            catch
+            {
+                species = 0x0;
+                lo = 1;
+                hi = 1;
+                Array.Copy(BitConverter.GetBytes(Convert.ToUInt16((Convert.ToUInt16(f) << 11) + Convert.ToUInt16(species))), 0, data, 0, 2);
+            }
             data[2] = (byte)lo;
             data[3] = (byte)hi;
             return data;
