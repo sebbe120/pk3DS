@@ -1,11 +1,15 @@
-</p>
-
 <h1 align="center">pk3DS </h1>
 
 <br />
 
 pk3DS is a ROM editor for all 3DS Pokémon games that utilizes a variety of tools developed by a large group of contributors.pk3DS was created 
 using C# and primarily focuses on its randomizer to provide users with a fresh and new experience in the beloved Pokémon games. 
+
+## Changes specific for this fork
+- Export Site pokemon includes more properies (incomplete)
+  - Gender ratio
+  - Held items
+  - Weight
 
 ## Table of contents
 
@@ -38,6 +42,7 @@ To begin using pk3DS you must first download the pk3DS editor zip file. Once you
 Place the files in the same folder then simply run the pk3DS.exe file.
 Once you open up the executable you can begin having fun with our editor and randomizing all the attributes and characteristics of the game to your liking.
 Below are some images of how the editor should look when you run it.
+
 ![RomFS Editing Tools](https://i.imgur.com/IDVCMfx.png)
 ![ExeFS Editing Tools](https://i.imgur.com/Ied0sVV.png)
 ![CRO Editing Tools](https://i.imgur.com/lUSGbw5.png)
