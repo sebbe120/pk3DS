@@ -608,7 +608,7 @@ namespace pk3DS
 
                 // 255 is genderless in pk3Ds
                 // 0 = 100% male & 254 = 100% female (Though it will show as 99.6% for the calculation)
-                int genderRatio = int.Parse(TB_BaseHP.Text);
+                int genderRatio = int.Parse(TB_Gender.Text);
                 if (genderRatio < 255)
                 {
                     // Index 0 = male & index 1 = female
