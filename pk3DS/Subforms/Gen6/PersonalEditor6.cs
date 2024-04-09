@@ -648,29 +648,33 @@ namespace pk3DS
                 }
 
                 for (int j = 0; j < CLB_TMHM.Items.Count; j++)
+                {
                     if (CLB_TMHM.GetItemChecked(j))
                     {
                         string tmString = CLB_TMHM.Items[j].ToString();
                         ExportPokemonTM tm = new()
                         {
-                            Label = tmString.Substring(0, tmString.IndexOf(" ")),
-                            Move = tmString.Substring(tmString.IndexOf(" ") + 1).Replace("’", "'")
-                    };
+                            Label = tmString[..tmString.IndexOf(" ")],
+                            Move = tmString[(tmString.IndexOf(" ") + 1)..].Replace("’", "'")
+                        };
 
                         pkm.TMs.Add(tm);
                     }
+                }
                 for (int j = 0; j < CLB_MoveTutors.Items.Count; j++)
+                {
                     if (CLB_MoveTutors.GetItemChecked(j))
                     {
                         string tmString = CLB_MoveTutors.Items[j].ToString();
                         ExportPokemonTM tm = new()
                         {
-                            Label = "Tutor",
+                            Label = $"MT{j + 1:00}",
                             Move = tmString.Replace("’", "'")
-                    };
+                        };
 
                         pkm.TMs.Add(tm);
                     }
+                }
 
                 pkmDict.Add(pkmName, pkm);
             }
