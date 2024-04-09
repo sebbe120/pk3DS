@@ -6,7 +6,7 @@ pk3DS is a ROM editor for all 3DS Pokémon games that utilizes a variety of tool
 using C# and primarily focuses on its randomizer to provide users with a fresh and new experience in the beloved Pokémon games. 
 
 ## Changes specific for this fork
-- Export Site pokemon includes more properies (incomplete)
+- Export Site pokemon includes more properies
   - Gender ratio
   - Held items
   - Weight
