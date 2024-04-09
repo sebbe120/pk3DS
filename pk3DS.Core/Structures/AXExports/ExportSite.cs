@@ -12,6 +12,10 @@ namespace pk3DS.Core.Structures.AXExports
         public string Ability2 { get; set; }
         public string AbilityH { get; set; }
         public Dictionary<string, int> BaseStats { get; set; }
+        public int BaseStatTotal { get; set; }
+        public string[] GenderRatio { get; set; } = new string[1] { "Genderless" };
+        public double Weight { get; set; }
+        public Dictionary<string, int> HeldItems { get; set; }
         public int CatchRate { get; set; }
         public int BaseXP { get; set; }
         public string GrowthRate { get; set; }

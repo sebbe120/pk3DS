@@ -584,7 +584,7 @@ namespace pk3DS
 
                 ExportPokemonSite pkm = new()
                 {
-                    SpeciesIdx = i <= 721 ? i : pkmDict[pkmName.Substring(0, pkmName.IndexOf("-"))].SpeciesIdx,
+                    SpeciesIdx = i <= 721 ? i : pkmDict[pkmName[..pkmName.IndexOf("-")]].SpeciesIdx,
                     Type1 = CB_Type1.Text,
                     Type2 = CB_Type2.Text,
                     Ability1 = CB_Ability1.Text,
@@ -599,10 +599,53 @@ namespace pk3DS
                         { "SpD", int.Parse(TB_BaseSPD.Text) },
                         { "Spe", int.Parse(TB_BaseSPE.Text) }
                     },
+                    BaseStatTotal = int.Parse(TB_BaseHP.Text) + int.Parse(TB_BaseATK.Text) + int.Parse(TB_BaseDEF.Text) + int.Parse(TB_BaseSPA.Text) + int.Parse(TB_BaseSPD.Text) + int.Parse(TB_BaseSPE.Text),
+                    Weight = double.Parse(TB_Weight.Text),
                     CatchRate = int.Parse(TB_CatchRate.Text),
                     BaseXP = int.Parse(TB_BaseExp.Text),
                     GrowthRate = CB_EXPGroup.Text
                 };
+
+                // 255 is genderless in pk3Ds
+                // 0 = 100% male & 254 = 100% female (Though it will show as 99.6% for the calculation)
+                int genderRatio = int.Parse(TB_BaseHP.Text);
+                if (genderRatio < 255)
+                {
+                    // Index 0 = male & index 1 = female
+                    pkm.GenderRatio = new string[2] { Math.Round(1 - (double.Parse(TB_Gender.Text) + 1) / 256, 3).ToString().Replace(",", "."), Math.Round((double.Parse(TB_Gender.Text) + 1) / 256, 3).ToString().Replace(",", ".") };
+                }
+
+                if (CB_HeldItem1.Text != "")
+                {
+                    pkm.HeldItems ??= new();
+                    pkm.HeldItems[CB_HeldItem1.Text] = 50;
+                }
+
+                if (CB_HeldItem2.Text != "")
+                {
+                    pkm.HeldItems ??= new();
+                    if (pkm.HeldItems.ContainsKey(CB_HeldItem2.Text))
+                    {
+                        pkm.HeldItems[CB_HeldItem2.Text] += 5;
+                    }
+                    else
+                    {
+                        pkm.HeldItems.Add(CB_HeldItem2.Text, 5);
+                    }
+                }
+
+                if (CB_HeldItem3.Text != "")
+                {
+                    pkm.HeldItems ??= new();
+                    if (pkm.HeldItems.ContainsKey(CB_HeldItem2.Text))
+                    {
+                        pkm.HeldItems[CB_HeldItem2.Text] += 1;
+                    }
+                    else
+                    {
+                        pkm.HeldItems.Add(CB_HeldItem2.Text, 1);
+                    }
+                }
 
                 for (int j = 0; j < CLB_TMHM.Items.Count; j++)
                     if (CLB_TMHM.GetItemChecked(j))
