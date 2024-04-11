@@ -174,5 +174,21 @@ namespace pk3DS.Core.Structures.AXExports
 
             return pkmName;
         }
-    }
+
+		public static string GetJSONPkmNameFromString(string pkmName)
+		{
+            if (pkmName.Contains("Nidoran"))
+            {
+				// Change the output of the nidorans to: Nidoran-F & Nidoran-M
+				pkmName.Replace("\uE08F", "-F").Replace("\uE08E", "-M");
+            }
+
+            if (AXPokemonFormNamesSite.ContainsKey(pkmName))
+				pkmName = AXPokemonFormNamesSite[pkmName];
+			else if (pkmName.Substring(pkmName.Length - 1) == "1")
+				pkmName = pkmName.Substring(0, pkmName.Length - 2) + "-Mega";
+
+			return pkmName;
+		}
+	}
 }

@@ -90,4 +90,26 @@ namespace pk3DS.Core.Structures.AXExports
 
         public ExportMoveDataSite() { }
     }
+
+	public class EncounterArea
+	{
+		public int Id { get; set; }
+		public string Name { get; set; }
+		// Location types
+		public List<Encounter> EncounterTable { get; set; } = new();
+	}
+
+	public class Encounter
+	{
+		/// <summary>
+		/// Type of the encounter, like grass and rock smash
+		/// </summary>
+		public string Type { get; set; } = "n/a";
+		public int Level { get; set; } = -1;
+		/// <summary>
+		/// "List" of all the pokemon in the area
+		/// Key: pokemon.name, value: encounter rate
+		/// </summary>
+		public Dictionary<string, int> Pokemon { get; set; } = new Dictionary<string, int>();
+	}
 }
