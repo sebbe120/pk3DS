@@ -10,6 +10,9 @@ using C# and primarily focuses on its randomizer to provide users with a fresh a
   - Gender ratio
   - Held items
   - Weight
+- Export Site Option for Wild Areas
+- Accounts for nidoran f/m
+- Does not account for forms yet
 
 ## Table of contents
 
