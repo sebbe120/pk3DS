@@ -6,13 +6,17 @@ pk3DS is a ROM editor for all 3DS Pokémon games that utilizes a variety of tool
 using C# and primarily focuses on its randomizer to provide users with a fresh and new experience in the beloved Pokémon games. 
 
 ## Changes specific for this fork
+This fork is only made with Pokemon X and Y in mind (Includes Ancestral X changes). ORAS might be affected by changes, but Sun and Moon should work like the original pk3DS
 - Export Site pokemon includes more properies
   - Gender ratio
   - Held items
   - Weight
 - Export Site Option for Wild Areas
-- Accounts for nidoran f/m
-- Does not account for forms yet
+  - Accounts for nidoran f/m
+  - Does not account for forms yet
+- Error handling
+  - Added try-catch in evolution editor for invalid evolutions. When reading an invalid evolution it sets the values to used item Houndoomite and evolution to Dunsparce to indicate that something is wrong.
+    - This is obviously a quick and dirty fix, but it prevents softlocking pk3DS when saving invalid evolution combinations and trying to read them afterwards.
 
 ## Table of contents
 
