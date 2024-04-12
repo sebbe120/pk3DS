@@ -113,8 +113,6 @@ namespace pk3DS
 				// Can be caused by selecting used item male/female and inputting a number instead of level up male/female
 				catch (Exception)
 				{
-                    Debug.WriteLine(evo.PossibleEvolutions[i].Method);
-                    Debug.WriteLine(evo.PossibleEvolutions[i].Species);
 					mb[i].SelectedIndex = 18; // Level up Male
 					pb[i].SelectedIndex = 666; // Houndoomite
 					rb[i].SelectedIndex = 206; // Dunsparce
