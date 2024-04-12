@@ -12,6 +12,7 @@ using pk3DS.Core.Structures;
 using System.Text.Json;
 using System.Collections.Generic;
 using pk3DS.Core.Structures.AXExports;
+using System.Diagnostics;
 
 namespace pk3DS
 {
@@ -103,9 +104,21 @@ namespace pk3DS
             {
                 if (evo.PossibleEvolutions[i].Method > 34) return; // Invalid!
 
-                mb[i].SelectedIndex = evo.PossibleEvolutions[i].Method; // Which will trigger the params cb to reload the valid params list
-                pb[i].SelectedIndex = evo.PossibleEvolutions[i].Argument;
-                rb[i].SelectedIndex = evo.PossibleEvolutions[i].Species;
+                try
+                {
+					mb[i].SelectedIndex = evo.PossibleEvolutions[i].Method; // Which will trigger the params cb to reload the valid params list
+					pb[i].SelectedIndex = evo.PossibleEvolutions[i].Argument;
+					rb[i].SelectedIndex = evo.PossibleEvolutions[i].Species;
+				}
+				// Can be caused by selecting used item male/female and inputting a number instead of level up male/female
+				catch (Exception)
+				{
+                    Debug.WriteLine(evo.PossibleEvolutions[i].Method);
+                    Debug.WriteLine(evo.PossibleEvolutions[i].Species);
+					mb[i].SelectedIndex = 18; // Level up Male
+					pb[i].SelectedIndex = 666; // Houndoomite
+					rb[i].SelectedIndex = 206; // Dunsparce
+				}
             }
         }
 
