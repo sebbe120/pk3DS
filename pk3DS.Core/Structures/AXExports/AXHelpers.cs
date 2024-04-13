@@ -103,12 +103,17 @@ namespace pk3DS.Core.Structures.AXExports
 
         public static readonly Dictionary<string, string> AXPokemonFormNamesSite = new()
         {
-            { "Basculin 1", "Basculin-Blue-Striped" },
+            { "Castform 1", "Castform-Sunny" },
+            { "Castform 2", "Castform-Rainy" },
+            { "Castform 3", "Castform-Snowy" },
             { "Deoxys 1", "Deoxys-Attack" },
             { "Deoxys 2", "Deoxys-Defense" },
             { "Deoxys 3", "Deoxys-Speed" },
+            { "Burmy 1", "Burmy" }, // Not Sandy since pk3DS currently do have functionality for it - trainers & wild area can still have it
+            { "Burmy 2", "Burmy" }, // Not Trash since pk3DS currently do have functionality for it - trainers & wild area can still have it
             { "Wormadam 1", "Wormadam-Sandy" },
             { "Wormadam 2", "Wormadam-Trash" },
+            { "Gastrodon 1", "Gastrodon" },// Not East since pk3DS currently do have functionality for it - trainers & wild area can still have it
             { "Shaymin 1", "Shaymin-Sky" },
             { "Giratina 1", "Giratina-Origin" },
             { "Rotom 1", "Rotom-Heat" },
@@ -116,10 +121,8 @@ namespace pk3DS.Core.Structures.AXExports
             { "Rotom 3", "Rotom-Frost" },
             { "Rotom 4", "Rotom-Fan" },
             { "Rotom 5", "Rotom-Mow" },
-            { "Castform 1", "Castform-Sunny" },
-            { "Castform 2", "Castform-Rainy" },
-            { "Castform 3", "Castform-Snowy" },
             { "Cherrim 1", "Cherrim-Sunshine" },
+            { "Basculin 1", "Basculin-Blue-Striped" },
             { "Darmanitan 1", "Darmanitan-Zen" },
             { "Meloetta 1", "Meloetta-Pirouette" },
             { "Kyurem 1", "Kyurem-White" },
@@ -141,8 +144,21 @@ namespace pk3DS.Core.Structures.AXExports
             { "Gourgeist 1", "Gourgeist-Small" },
             { "Gourgeist 2", "Gourgeist-Large" },
             { "Gourgeist 3", "Gourgeist-Super" },
-            // Skipping Floettes
-
+            { "Flab\u00E9b\u00E9 1", "Flabébé" }, // "Normalizing" Flabébé formes
+            { "Flab\u00E9b\u00E9 2", "Flabébé" }, // "Normalizing" Flabébé formes
+            { "Flab\u00E9b\u00E9 3", "Flabébé" }, // "Normalizing" Flabébé formes
+            { "Flab\u00E9b\u00E9 4", "Flabébé" }, // "Normalizing" Flabébé formes
+            { "Flab\u00E9b\u00E9 5", "Flabébé" }, // "Normalizing" Flabébé formes
+            { "Floette 1", "Floette" }, // "Normalizing" Floette formes
+            { "Floette 2", "Floette" }, // "Normalizing" Floette formes
+            { "Floette 3", "Floette" }, // "Normalizing" Floette formes
+            { "Floette 4", "Floette" }, // "Normalizing" Floette formes
+            { "Floette 5", "Floette" }, // "Normalizing" Floette formes
+            { "Florges 1", "Florges" }, // "Normalizing" Florges formes
+            { "Florges 2", "Florges" }, // "Normalizing" Florges formes
+            { "Florges 3", "Florges" }, // "Normalizing" Florges formes
+            { "Florges 4", "Florges" }, // "Normalizing" Florges formes
+            { "Florges 5", "Florges" }, // "Normalizing" Florges formes
         };
 
         public static readonly Dictionary<int, string> BetterEvoMethodDesc = new()
@@ -180,10 +196,14 @@ namespace pk3DS.Core.Structures.AXExports
             if (pkmName.Contains("Nidoran"))
             {
 				// Change the output of the nidorans to: Nidoran-F & Nidoran-M
-				pkmName.Replace("\uE08F", "-F").Replace("\uE08E", "-M");
+				pkmName = pkmName.Replace("\uE08F", "-F").Replace("\uE08E", "-M");
             }
+			if (pkmName.Contains("Unown"))
+			{
+				pkmName = "Unown";
+			}
 
-            if (AXPokemonFormNamesSite.ContainsKey(pkmName))
+			if (AXPokemonFormNamesSite.ContainsKey(pkmName))
 				pkmName = AXPokemonFormNamesSite[pkmName];
 			else if (pkmName.Substring(pkmName.Length - 1) == "1")
 				pkmName = pkmName.Substring(0, pkmName.Length - 2) + "-Mega";

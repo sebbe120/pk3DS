@@ -649,12 +649,22 @@ namespace pk3DS
 					// Non horde encounters
 					if (!encounter.Type.Contains("Horde"))
 					{
-						foreach (Match item in Regex.Matches(encounterString, @"(\d+)% - ([a-zA-ZÀ-ÿ0-9-’. ]+)").Cast<Match>())
+						foreach (Match item in Regex.Matches(encounterString, @"(\d+)% - ([a-zA-ZÀ-ÿ0-9-’. ]+) \(Level \d+, Forme: (\d+)").Cast<Match>())
 						{
 							int percentage = int.Parse(item.Groups[1].Value.Trim());
 							string name = item.Groups[2].Value.Trim();
-							name = AXHelpers.GetJSONPkmNameFromString(name);
-							// Account for form here
+                            int forme = int.Parse(item.Groups[3].Value.Trim());
+                            if (forme == 0)
+                            {
+                                name = AXHelpers.GetJSONPkmNameFromString(name);
+                            }
+                            // Account for form here
+                            else
+                            {
+                                name = AXHelpers.GetJSONPkmNameFromString($"{name} {forme}");
+                            }
+                            // Account for form here
+                            name = AXHelpers.GetJSONPkmNameFromString(name);
 
 							if (encounter.Pokemon.ContainsKey(name))
 							{
@@ -669,11 +679,19 @@ namespace pk3DS
 					// Horde encounters
 					else
 					{
-						foreach (Match item in Regex.Matches(encounterString, @"([a-zA-Z-'0-9]+) \(Level").Cast<Match>())
+						foreach (Match item in Regex.Matches(encounterString, @"([a-zA-Z-'0-9]+) \(Level \d+, Forme: (\d+)").Cast<Match>())
 						{
 							string name = item.Groups[1].Value.Trim();
-							name = AXHelpers.GetJSONPkmNameFromString(name);
+							int forme = int.Parse(item.Groups[2].Value.Trim());
+                            if ( forme == 0)
+							{
+                                name = AXHelpers.GetJSONPkmNameFromString(name);
+                            }
 							// Account for form here
+							else
+							{
+                                name = AXHelpers.GetJSONPkmNameFromString($"{name} {forme}");
+                            }
 
 							if (encounter.Pokemon.ContainsKey(name))
 							{
