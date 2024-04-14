@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using pk3DS.Core;
 using pk3DS.Core.Randomizers;
 using pk3DS.Core.Structures;
@@ -1169,7 +1170,6 @@ namespace pk3DS
                     ExportTrPkmSite trPkm = new()
                     {
                         Name = trpk_pkm[j].Text.Replace("’", "'"),
-                        Form = trpk_form[j].Text,
                         Gender = trpk_gender[j].Text,
                         Level = trpk_lvl[j].SelectedIndex,
                         Ability = trpk_abil[j].Text,
@@ -1177,6 +1177,20 @@ namespace pk3DS
                         Nature = trpk_nature[j].Text,
                         IVs = trpk_IV[j].SelectedIndex & 0x1F
                     };
+                    // Do not output form if it is the base form
+                    // For instance Name: Medicham & Form: Medicham, since it is not the mega
+                    // Skip Furfrou since the form is cosmetic
+                    string form = trpk_form[j].Text;
+                    if (form != "" && !trPkm.Name.Contains("Furfrou") && !trPkm.Name.Contains("Vivillon"))
+                    {
+                        trPkm.Form = AXHelpers.GetJSONPkmNameFromString(form);
+                        // If the returned form is the base form do not output form
+                        trPkm.Form = trPkm.Form == trPkm.Name ? "" : trPkm.Form;
+                    }
+                    else
+                    {
+                        trPkm.Form = "";
+                    }
 
                     trPkm.Moves[0] = trpk_m1[j].Text.Replace("’", "'");
                     trPkm.Moves[1] = trpk_m2[j].Text.Replace("’", "'");
