@@ -1160,19 +1160,22 @@ namespace pk3DS
 
                 ExportTrSite tr = new()
                 {
-                    TrainerID = CB_TrainerID.SelectedIndex,
-                    TrainerClass = CB_Trainer_Class.SelectedItem.ToString(),
+                    Id = CB_TrainerID.SelectedIndex,
+                    Class = CB_Trainer_Class.SelectedItem.ToString(),
                     BattleType = CB_Battle_Type.SelectedItem.ToString(),
                 };
+                // Remove the classid (last 6 chars) from the class property
+                tr.Class = tr.Class[..^6];
 
-                for (int j = 0; j < CB_numPokemon.SelectedIndex; j++)
+
+				for (int j = 0; j < CB_numPokemon.SelectedIndex; j++)
                 {
                     ExportTrPkmSite trPkm = new()
                     {
                         Name = trpk_pkm[j].Text.Replace("’", "'"),
                         Gender = trpk_gender[j].Text,
                         Level = trpk_lvl[j].SelectedIndex,
-                        Ability = trpk_abil[j].Text,
+                        Ability = trpk_abil[j].Text[..trpk_abil[j].Text.LastIndexOf(' ')], // Remove the (1), (2), (h) suffix
                         HeldItem = trpk_item[j].Text.Replace("’", "'"),
                         Nature = trpk_nature[j].Text,
                         IVs = trpk_IV[j].SelectedIndex & 0x1F

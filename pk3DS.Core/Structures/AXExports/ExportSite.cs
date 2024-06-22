@@ -52,8 +52,8 @@ namespace pk3DS.Core.Structures.AXExports
     {
         public List<ExportTrPkmSite> Pokemon { get; set; } = new();
 
-        public int TrainerID { get; set; }
-        public string TrainerClass { get; set; }
+        public int Id { get; set; }
+        public string Class { get; set; }
         public string BattleType { get; set; }
 
         public ExportTrSite() { }
