@@ -11,6 +11,7 @@ using pk3DS.Core;
 using pk3DS.Core.Randomizers;
 using pk3DS.Core.Structures.AXExports;
 using System.Text.Json;
+using System.Diagnostics;
 
 namespace pk3DS
 {
@@ -578,11 +579,11 @@ namespace pk3DS
 
                 string pkmName = AXHelpers.GetJSONPkmName(CB_Species, true);
 
-                if ((pkmName.StartsWith("Furfrou") && pkmName != "Furfrou") ||
-                    (pkmName.StartsWith("Floette") && pkmName != "Floette"))
+                if ((pkmName.StartsWith("Furfrou") && pkmDict.Count > 721) ||
+                    (pkmName.StartsWith("Floette") && pkmDict.Count > 721))
                     continue;
 
-                ExportPokemonSite pkm = new()
+                ExportPokemonSite pkm = new()// Gourgeist 3
                 {
                     SpeciesIdx = i <= 721 ? i : pkmDict[pkmName[..pkmName.IndexOf("-")]].SpeciesIdx,
                     Type1 = CB_Type1.Text,
