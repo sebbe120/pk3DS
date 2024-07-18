@@ -1172,6 +1172,7 @@ namespace pk3DS
                 {
                     ExportTrPkmSite trPkm = new()
                     {
+                        Id = trpk_pkm[j].SelectedIndex,
                         Name = trpk_pkm[j].Text.Replace("’", "'"),
                         Gender = trpk_gender[j].Text,
                         Level = trpk_lvl[j].SelectedIndex,

@@ -35,6 +35,7 @@ namespace pk3DS.Core.Structures.AXExports
     // Trainers
     public class ExportTrPkmSite
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Form { get; set; }
         public string Gender { get; set; } = "";
