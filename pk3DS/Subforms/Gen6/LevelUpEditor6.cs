@@ -12,6 +12,7 @@ using pk3DS.Core;
 using pk3DS.Core.Randomizers;
 using System.Text.Json;
 using pk3DS.Core.Structures.AXExports;
+using System.Diagnostics;
 
 namespace pk3DS
 {
@@ -270,8 +271,16 @@ namespace pk3DS
                         Level = int.Parse(dgv.Rows[j].Cells[0].Value.ToString()),
                         Move = dgv.Rows[j].Cells[1].Value.ToString().Replace("’", "'")
             });
-
-                pkmMoveDict.Add(pkmName, moveList);
+                // Trycatch for pokemon like Floette that have had their name normalized
+                // where each floette form has the same name
+                try
+                {
+                    pkmMoveDict.Add(pkmName, moveList);
+                }
+                catch (Exception)
+                {
+                    Debug.WriteLine($"Cannot add {pkmName}, since it already exists");
+                }
             }
 
             SaveFileDialog sfd = new() { FileName = "levelUpMoves.json", Filter = "JSON|*.json" };
