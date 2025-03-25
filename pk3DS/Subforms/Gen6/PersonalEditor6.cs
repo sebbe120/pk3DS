@@ -607,12 +607,20 @@ namespace pk3DS
                     GrowthRate = CB_EXPGroup.Text
                 };
 
-                // 255 is genderless in pk3Ds
-                // 0 = 100% male & 254 = 100% female (Though it will show as 99.6% for the calculation)
                 int genderRatio = int.Parse(TB_Gender.Text);
-                if (genderRatio < 255)
+                // Index 0 = male & index 1 = female
+                // 0 = 100% male & 254 = 100% female
+                // 255 is genderless in pk3Ds
+                if (genderRatio == 254)
                 {
-                    // Index 0 = male & index 1 = female
+                    pkm.GenderRatio = new string[2] { "0.00", "1.00" };
+                }
+                else if (genderRatio == 0)
+                {
+                    pkm.GenderRatio = new string[2] { "1.00", "0.00" };
+                }
+                else if (genderRatio < 254)
+                {
                     pkm.GenderRatio = new string[2] { Math.Round(1 - (double.Parse(TB_Gender.Text) + 1) / 256, 3).ToString().Replace(",", "."), Math.Round((double.Parse(TB_Gender.Text) + 1) / 256, 3).ToString().Replace(",", ".") };
                 }
 
