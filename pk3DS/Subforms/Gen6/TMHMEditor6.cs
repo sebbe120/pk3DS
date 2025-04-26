@@ -4,6 +4,11 @@ using System.IO;
 using System.Windows.Forms;
 using System.Linq;
 using pk3DS.Core;
+using pk3DS.Core.Structures.AXExports;
+using System.Diagnostics;
+using static pk3DS.Zone.ZoneEncounters;
+using System.Media;
+using System.Text.Json;
 
 namespace pk3DS
 {
@@ -239,6 +244,46 @@ namespace pk3DS
 
             TMs = tms.ToArray();
             HMs = hms.ToArray();
+        }
+
+        /// <summary>
+		/// Exports TMs and HMs to a json file as a combined list
+		/// </summary>
+        private void B_Export_TMHM_Click(object sender, EventArgs e)
+        {
+            if (DialogResult.Yes != WinFormsUtil.Prompt(MessageBoxButtons.YesNo, "Export TMs and HMs for Site?"))
+                return;
+
+            List<ExportTMHMSite> TMHMs = new();
+            for (int i = 0; i < dgvTM.Rows.Count; i++)
+            {
+                ExportTMHMSite TMHM = new()
+                {
+                    Id = i + 1,
+                    Name = dgvTM.Rows[i].Cells[1].Value.ToString()
+                };
+                TMHMs.Add(TMHM);
+            }
+            for (int i = 0; i < dgvHM.Rows.Count; i++)
+            {
+                ExportTMHMSite TMHM = new()
+                {
+                    Id = i + 101,
+                    Name = dgvHM.Rows[i].Cells[1].Value.ToString()
+                };
+                TMHMs.Add(TMHM);
+            }
+
+            SaveFileDialog sfd = new() { FileName = "TMHM.json", Filter = "JSON|*.json" };
+            SystemSounds.Asterisk.Play();
+
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                string path = sfd.FileName;
+                string json = JsonSerializer.Serialize(TMHMs);
+                File.WriteAllText(path, json);
+                Debug.WriteLine("Exported list of TMs and HMs to json file");
+            }
         }
     }
 }

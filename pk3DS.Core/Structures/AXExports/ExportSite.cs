@@ -113,4 +113,11 @@ namespace pk3DS.Core.Structures.AXExports
 		/// </summary>
 		public Dictionary<string, int> Pokemon { get; set; } = new Dictionary<string, int>();
 	}
+
+    public class ExportTMHMSite
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Location { get; set; } = "unknown";
+    }
 }
