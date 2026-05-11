@@ -28,405 +28,451 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.LBL_Item1 = new System.Windows.Forms.Label();
-            this.LBL_Forme1 = new System.Windows.Forms.Label();
-            this.GB_MEvo1 = new System.Windows.Forms.GroupBox();
-            this.LBL_Into1 = new System.Windows.Forms.Label();
-            this.PB_M1 = new System.Windows.Forms.PictureBox();
-            this.PB_S1 = new System.Windows.Forms.PictureBox();
-            this.CB_Forme1 = new System.Windows.Forms.ComboBox();
-            this.CB_Item1 = new System.Windows.Forms.ComboBox();
-            this.GB_MEvo2 = new System.Windows.Forms.GroupBox();
-            this.LBL_Into2 = new System.Windows.Forms.Label();
-            this.PB_M2 = new System.Windows.Forms.PictureBox();
-            this.CB_Forme2 = new System.Windows.Forms.ComboBox();
-            this.PB_S2 = new System.Windows.Forms.PictureBox();
-            this.CB_Item2 = new System.Windows.Forms.ComboBox();
-            this.LBL_Forme2 = new System.Windows.Forms.Label();
-            this.LBL_Item2 = new System.Windows.Forms.Label();
-            this.CHK_MEvo1 = new System.Windows.Forms.CheckBox();
-            this.CHK_MEvo2 = new System.Windows.Forms.CheckBox();
-            this.CB_Species = new System.Windows.Forms.ComboBox();
-            this.GB_MEvo3 = new System.Windows.Forms.GroupBox();
-            this.LBL_Into3 = new System.Windows.Forms.Label();
-            this.PB_M3 = new System.Windows.Forms.PictureBox();
-            this.CB_Forme3 = new System.Windows.Forms.ComboBox();
-            this.PB_S3 = new System.Windows.Forms.PictureBox();
-            this.CB_Item3 = new System.Windows.Forms.ComboBox();
-            this.LBL_Forme3 = new System.Windows.Forms.Label();
-            this.LBL_Item3 = new System.Windows.Forms.Label();
-            this.CHK_MEvo3 = new System.Windows.Forms.CheckBox();
-            this.bpkx = new System.Windows.Forms.PictureBox();
-            this.B_Dump = new System.Windows.Forms.Button();
-            this.GB_MEvo1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PB_M1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PB_S1)).BeginInit();
-            this.GB_MEvo2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PB_M2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PB_S2)).BeginInit();
-            this.GB_MEvo3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PB_M3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PB_S3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bpkx)).BeginInit();
-            this.SuspendLayout();
+            LBL_Item1 = new System.Windows.Forms.Label();
+            LBL_Forme1 = new System.Windows.Forms.Label();
+            GB_MEvo1 = new System.Windows.Forms.GroupBox();
+            LBL_Into1 = new System.Windows.Forms.Label();
+            PB_M1 = new System.Windows.Forms.PictureBox();
+            PB_S1 = new System.Windows.Forms.PictureBox();
+            CB_Forme1 = new System.Windows.Forms.ComboBox();
+            CB_Item1 = new System.Windows.Forms.ComboBox();
+            GB_MEvo2 = new System.Windows.Forms.GroupBox();
+            LBL_Into2 = new System.Windows.Forms.Label();
+            PB_M2 = new System.Windows.Forms.PictureBox();
+            CB_Forme2 = new System.Windows.Forms.ComboBox();
+            PB_S2 = new System.Windows.Forms.PictureBox();
+            CB_Item2 = new System.Windows.Forms.ComboBox();
+            LBL_Forme2 = new System.Windows.Forms.Label();
+            LBL_Item2 = new System.Windows.Forms.Label();
+            CHK_MEvo1 = new System.Windows.Forms.CheckBox();
+            CHK_MEvo2 = new System.Windows.Forms.CheckBox();
+            CB_Species = new System.Windows.Forms.ComboBox();
+            GB_MEvo3 = new System.Windows.Forms.GroupBox();
+            LBL_Into3 = new System.Windows.Forms.Label();
+            PB_M3 = new System.Windows.Forms.PictureBox();
+            CB_Forme3 = new System.Windows.Forms.ComboBox();
+            PB_S3 = new System.Windows.Forms.PictureBox();
+            CB_Item3 = new System.Windows.Forms.ComboBox();
+            LBL_Forme3 = new System.Windows.Forms.Label();
+            LBL_Item3 = new System.Windows.Forms.Label();
+            CHK_MEvo3 = new System.Windows.Forms.CheckBox();
+            bpkx = new System.Windows.Forms.PictureBox();
+            B_Dump = new System.Windows.Forms.Button();
+            B_Dump_JSON = new System.Windows.Forms.Button();
+            GB_MEvo1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)PB_M1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PB_S1).BeginInit();
+            GB_MEvo2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)PB_M2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PB_S2).BeginInit();
+            GB_MEvo3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)PB_M3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PB_S3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)bpkx).BeginInit();
+            SuspendLayout();
             // 
             // LBL_Item1
             // 
-            this.LBL_Item1.AutoSize = true;
-            this.LBL_Item1.Location = new System.Drawing.Point(6, 20);
-            this.LBL_Item1.Name = "LBL_Item1";
-            this.LBL_Item1.Size = new System.Drawing.Size(27, 13);
-            this.LBL_Item1.TabIndex = 9;
-            this.LBL_Item1.Text = "Item";
+            LBL_Item1.AutoSize = true;
+            LBL_Item1.Location = new System.Drawing.Point(7, 23);
+            LBL_Item1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LBL_Item1.Name = "LBL_Item1";
+            LBL_Item1.Size = new System.Drawing.Size(31, 15);
+            LBL_Item1.TabIndex = 9;
+            LBL_Item1.Text = "Item";
             // 
             // LBL_Forme1
             // 
-            this.LBL_Forme1.AutoSize = true;
-            this.LBL_Forme1.Location = new System.Drawing.Point(6, 65);
-            this.LBL_Forme1.Name = "LBL_Forme1";
-            this.LBL_Forme1.Size = new System.Drawing.Size(85, 13);
-            this.LBL_Forme1.TabIndex = 10;
-            this.LBL_Forme1.Text = "Alt Forme (if any)";
+            LBL_Forme1.AutoSize = true;
+            LBL_Forme1.Location = new System.Drawing.Point(7, 75);
+            LBL_Forme1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LBL_Forme1.Name = "LBL_Forme1";
+            LBL_Forme1.Size = new System.Drawing.Size(99, 15);
+            LBL_Forme1.TabIndex = 10;
+            LBL_Forme1.Text = "Alt Forme (if any)";
             // 
             // GB_MEvo1
             // 
-            this.GB_MEvo1.Controls.Add(this.LBL_Into1);
-            this.GB_MEvo1.Controls.Add(this.PB_M1);
-            this.GB_MEvo1.Controls.Add(this.PB_S1);
-            this.GB_MEvo1.Controls.Add(this.CB_Forme1);
-            this.GB_MEvo1.Controls.Add(this.CB_Item1);
-            this.GB_MEvo1.Controls.Add(this.LBL_Forme1);
-            this.GB_MEvo1.Controls.Add(this.LBL_Item1);
-            this.GB_MEvo1.Enabled = false;
-            this.GB_MEvo1.Location = new System.Drawing.Point(12, 62);
-            this.GB_MEvo1.Name = "GB_MEvo1";
-            this.GB_MEvo1.Size = new System.Drawing.Size(126, 142);
-            this.GB_MEvo1.TabIndex = 11;
-            this.GB_MEvo1.TabStop = false;
-            this.GB_MEvo1.Text = "Evolution 1";
+            GB_MEvo1.Controls.Add(LBL_Into1);
+            GB_MEvo1.Controls.Add(PB_M1);
+            GB_MEvo1.Controls.Add(PB_S1);
+            GB_MEvo1.Controls.Add(CB_Forme1);
+            GB_MEvo1.Controls.Add(CB_Item1);
+            GB_MEvo1.Controls.Add(LBL_Forme1);
+            GB_MEvo1.Controls.Add(LBL_Item1);
+            GB_MEvo1.Enabled = false;
+            GB_MEvo1.Location = new System.Drawing.Point(14, 72);
+            GB_MEvo1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            GB_MEvo1.Name = "GB_MEvo1";
+            GB_MEvo1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            GB_MEvo1.Size = new System.Drawing.Size(147, 164);
+            GB_MEvo1.TabIndex = 11;
+            GB_MEvo1.TabStop = false;
+            GB_MEvo1.Text = "Evolution 1";
             // 
             // LBL_Into1
             // 
-            this.LBL_Into1.AutoSize = true;
-            this.LBL_Into1.Location = new System.Drawing.Point(51, 117);
-            this.LBL_Into1.Name = "LBL_Into1";
-            this.LBL_Into1.Size = new System.Drawing.Size(28, 13);
-            this.LBL_Into1.TabIndex = 34;
-            this.LBL_Into1.Text = "Into:";
+            LBL_Into1.AutoSize = true;
+            LBL_Into1.Location = new System.Drawing.Point(59, 135);
+            LBL_Into1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LBL_Into1.Name = "LBL_Into1";
+            LBL_Into1.Size = new System.Drawing.Size(31, 15);
+            LBL_Into1.TabIndex = 34;
+            LBL_Into1.Text = "Into:";
             // 
             // PB_M1
             // 
-            this.PB_M1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.PB_M1.Location = new System.Drawing.Point(81, 106);
-            this.PB_M1.Name = "PB_M1";
-            this.PB_M1.Size = new System.Drawing.Size(42, 32);
-            this.PB_M1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.PB_M1.TabIndex = 33;
-            this.PB_M1.TabStop = false;
+            PB_M1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            PB_M1.Location = new System.Drawing.Point(94, 122);
+            PB_M1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            PB_M1.Name = "PB_M1";
+            PB_M1.Size = new System.Drawing.Size(49, 37);
+            PB_M1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            PB_M1.TabIndex = 33;
+            PB_M1.TabStop = false;
             // 
             // PB_S1
             // 
-            this.PB_S1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.PB_S1.Location = new System.Drawing.Point(5, 106);
-            this.PB_S1.Name = "PB_S1";
-            this.PB_S1.Size = new System.Drawing.Size(42, 32);
-            this.PB_S1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.PB_S1.TabIndex = 32;
-            this.PB_S1.TabStop = false;
+            PB_S1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            PB_S1.Location = new System.Drawing.Point(6, 122);
+            PB_S1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            PB_S1.Name = "PB_S1";
+            PB_S1.Size = new System.Drawing.Size(49, 37);
+            PB_S1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            PB_S1.TabIndex = 32;
+            PB_S1.TabStop = false;
             // 
             // CB_Forme1
             // 
-            this.CB_Forme1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.CB_Forme1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.CB_Forme1.FormattingEnabled = true;
-            this.CB_Forme1.Location = new System.Drawing.Point(5, 82);
-            this.CB_Forme1.Name = "CB_Forme1";
-            this.CB_Forme1.Size = new System.Drawing.Size(121, 21);
-            this.CB_Forme1.TabIndex = 18;
-            this.CB_Forme1.SelectedIndexChanged += new System.EventHandler(this.Update_PBs);
+            CB_Forme1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            CB_Forme1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            CB_Forme1.FormattingEnabled = true;
+            CB_Forme1.Location = new System.Drawing.Point(6, 95);
+            CB_Forme1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CB_Forme1.Name = "CB_Forme1";
+            CB_Forme1.Size = new System.Drawing.Size(140, 23);
+            CB_Forme1.TabIndex = 18;
+            CB_Forme1.SelectedIndexChanged += Update_PBs;
             // 
             // CB_Item1
             // 
-            this.CB_Item1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.CB_Item1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.CB_Item1.FormattingEnabled = true;
-            this.CB_Item1.Location = new System.Drawing.Point(2, 35);
-            this.CB_Item1.Name = "CB_Item1";
-            this.CB_Item1.Size = new System.Drawing.Size(121, 21);
-            this.CB_Item1.TabIndex = 12;
-            this.CB_Item1.SelectedValueChanged += new System.EventHandler(this.Update_PBs);
+            CB_Item1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            CB_Item1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            CB_Item1.FormattingEnabled = true;
+            CB_Item1.Location = new System.Drawing.Point(2, 40);
+            CB_Item1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CB_Item1.Name = "CB_Item1";
+            CB_Item1.Size = new System.Drawing.Size(140, 23);
+            CB_Item1.TabIndex = 12;
+            CB_Item1.SelectedValueChanged += Update_PBs;
             // 
             // GB_MEvo2
             // 
-            this.GB_MEvo2.Controls.Add(this.LBL_Into2);
-            this.GB_MEvo2.Controls.Add(this.PB_M2);
-            this.GB_MEvo2.Controls.Add(this.CB_Forme2);
-            this.GB_MEvo2.Controls.Add(this.PB_S2);
-            this.GB_MEvo2.Controls.Add(this.CB_Item2);
-            this.GB_MEvo2.Controls.Add(this.LBL_Forme2);
-            this.GB_MEvo2.Controls.Add(this.LBL_Item2);
-            this.GB_MEvo2.Enabled = false;
-            this.GB_MEvo2.Location = new System.Drawing.Point(144, 62);
-            this.GB_MEvo2.Name = "GB_MEvo2";
-            this.GB_MEvo2.Size = new System.Drawing.Size(126, 142);
-            this.GB_MEvo2.TabIndex = 12;
-            this.GB_MEvo2.TabStop = false;
-            this.GB_MEvo2.Text = "Evolution 2";
+            GB_MEvo2.Controls.Add(LBL_Into2);
+            GB_MEvo2.Controls.Add(PB_M2);
+            GB_MEvo2.Controls.Add(CB_Forme2);
+            GB_MEvo2.Controls.Add(PB_S2);
+            GB_MEvo2.Controls.Add(CB_Item2);
+            GB_MEvo2.Controls.Add(LBL_Forme2);
+            GB_MEvo2.Controls.Add(LBL_Item2);
+            GB_MEvo2.Enabled = false;
+            GB_MEvo2.Location = new System.Drawing.Point(168, 72);
+            GB_MEvo2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            GB_MEvo2.Name = "GB_MEvo2";
+            GB_MEvo2.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            GB_MEvo2.Size = new System.Drawing.Size(147, 164);
+            GB_MEvo2.TabIndex = 12;
+            GB_MEvo2.TabStop = false;
+            GB_MEvo2.Text = "Evolution 2";
             // 
             // LBL_Into2
             // 
-            this.LBL_Into2.AutoSize = true;
-            this.LBL_Into2.Location = new System.Drawing.Point(52, 117);
-            this.LBL_Into2.Name = "LBL_Into2";
-            this.LBL_Into2.Size = new System.Drawing.Size(28, 13);
-            this.LBL_Into2.TabIndex = 35;
-            this.LBL_Into2.Text = "Into:";
+            LBL_Into2.AutoSize = true;
+            LBL_Into2.Location = new System.Drawing.Point(61, 135);
+            LBL_Into2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LBL_Into2.Name = "LBL_Into2";
+            LBL_Into2.Size = new System.Drawing.Size(31, 15);
+            LBL_Into2.TabIndex = 35;
+            LBL_Into2.Text = "Into:";
             // 
             // PB_M2
             // 
-            this.PB_M2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.PB_M2.Location = new System.Drawing.Point(80, 106);
-            this.PB_M2.Name = "PB_M2";
-            this.PB_M2.Size = new System.Drawing.Size(42, 32);
-            this.PB_M2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.PB_M2.TabIndex = 35;
-            this.PB_M2.TabStop = false;
+            PB_M2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            PB_M2.Location = new System.Drawing.Point(93, 122);
+            PB_M2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            PB_M2.Name = "PB_M2";
+            PB_M2.Size = new System.Drawing.Size(49, 37);
+            PB_M2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            PB_M2.TabIndex = 35;
+            PB_M2.TabStop = false;
             // 
             // CB_Forme2
             // 
-            this.CB_Forme2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.CB_Forme2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.CB_Forme2.FormattingEnabled = true;
-            this.CB_Forme2.Location = new System.Drawing.Point(2, 82);
-            this.CB_Forme2.Name = "CB_Forme2";
-            this.CB_Forme2.Size = new System.Drawing.Size(121, 21);
-            this.CB_Forme2.TabIndex = 19;
-            this.CB_Forme2.SelectedIndexChanged += new System.EventHandler(this.Update_PBs);
+            CB_Forme2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            CB_Forme2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            CB_Forme2.FormattingEnabled = true;
+            CB_Forme2.Location = new System.Drawing.Point(2, 95);
+            CB_Forme2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CB_Forme2.Name = "CB_Forme2";
+            CB_Forme2.Size = new System.Drawing.Size(140, 23);
+            CB_Forme2.TabIndex = 19;
+            CB_Forme2.SelectedIndexChanged += Update_PBs;
             // 
             // PB_S2
             // 
-            this.PB_S2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.PB_S2.Location = new System.Drawing.Point(4, 106);
-            this.PB_S2.Name = "PB_S2";
-            this.PB_S2.Size = new System.Drawing.Size(42, 32);
-            this.PB_S2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.PB_S2.TabIndex = 34;
-            this.PB_S2.TabStop = false;
+            PB_S2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            PB_S2.Location = new System.Drawing.Point(5, 122);
+            PB_S2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            PB_S2.Name = "PB_S2";
+            PB_S2.Size = new System.Drawing.Size(49, 37);
+            PB_S2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            PB_S2.TabIndex = 34;
+            PB_S2.TabStop = false;
             // 
             // CB_Item2
             // 
-            this.CB_Item2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.CB_Item2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.CB_Item2.FormattingEnabled = true;
-            this.CB_Item2.Location = new System.Drawing.Point(2, 36);
-            this.CB_Item2.Name = "CB_Item2";
-            this.CB_Item2.Size = new System.Drawing.Size(121, 21);
-            this.CB_Item2.TabIndex = 13;
-            this.CB_Item2.SelectedValueChanged += new System.EventHandler(this.Update_PBs);
+            CB_Item2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            CB_Item2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            CB_Item2.FormattingEnabled = true;
+            CB_Item2.Location = new System.Drawing.Point(2, 42);
+            CB_Item2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CB_Item2.Name = "CB_Item2";
+            CB_Item2.Size = new System.Drawing.Size(140, 23);
+            CB_Item2.TabIndex = 13;
+            CB_Item2.SelectedValueChanged += Update_PBs;
             // 
             // LBL_Forme2
             // 
-            this.LBL_Forme2.AutoSize = true;
-            this.LBL_Forme2.Location = new System.Drawing.Point(6, 65);
-            this.LBL_Forme2.Name = "LBL_Forme2";
-            this.LBL_Forme2.Size = new System.Drawing.Size(85, 13);
-            this.LBL_Forme2.TabIndex = 10;
-            this.LBL_Forme2.Text = "Alt Forme (if any)";
+            LBL_Forme2.AutoSize = true;
+            LBL_Forme2.Location = new System.Drawing.Point(7, 75);
+            LBL_Forme2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LBL_Forme2.Name = "LBL_Forme2";
+            LBL_Forme2.Size = new System.Drawing.Size(99, 15);
+            LBL_Forme2.TabIndex = 10;
+            LBL_Forme2.Text = "Alt Forme (if any)";
             // 
             // LBL_Item2
             // 
-            this.LBL_Item2.AutoSize = true;
-            this.LBL_Item2.Location = new System.Drawing.Point(6, 20);
-            this.LBL_Item2.Name = "LBL_Item2";
-            this.LBL_Item2.Size = new System.Drawing.Size(27, 13);
-            this.LBL_Item2.TabIndex = 9;
-            this.LBL_Item2.Text = "Item";
+            LBL_Item2.AutoSize = true;
+            LBL_Item2.Location = new System.Drawing.Point(7, 23);
+            LBL_Item2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LBL_Item2.Name = "LBL_Item2";
+            LBL_Item2.Size = new System.Drawing.Size(31, 15);
+            LBL_Item2.TabIndex = 9;
+            LBL_Item2.Text = "Item";
             // 
             // CHK_MEvo1
             // 
-            this.CHK_MEvo1.AutoSize = true;
-            this.CHK_MEvo1.Location = new System.Drawing.Point(12, 39);
-            this.CHK_MEvo1.Name = "CHK_MEvo1";
-            this.CHK_MEvo1.Size = new System.Drawing.Size(65, 17);
-            this.CHK_MEvo1.TabIndex = 13;
-            this.CHK_MEvo1.Text = "Enabled";
-            this.CHK_MEvo1.UseVisualStyleBackColor = true;
-            this.CHK_MEvo1.CheckedChanged += new System.EventHandler(this.CHK_Changed);
+            CHK_MEvo1.AutoSize = true;
+            CHK_MEvo1.Location = new System.Drawing.Point(14, 45);
+            CHK_MEvo1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CHK_MEvo1.Name = "CHK_MEvo1";
+            CHK_MEvo1.Size = new System.Drawing.Size(68, 19);
+            CHK_MEvo1.TabIndex = 13;
+            CHK_MEvo1.Text = "Enabled";
+            CHK_MEvo1.UseVisualStyleBackColor = true;
+            CHK_MEvo1.CheckedChanged += CHK_Changed;
             // 
             // CHK_MEvo2
             // 
-            this.CHK_MEvo2.AutoSize = true;
-            this.CHK_MEvo2.Location = new System.Drawing.Point(144, 39);
-            this.CHK_MEvo2.Name = "CHK_MEvo2";
-            this.CHK_MEvo2.Size = new System.Drawing.Size(65, 17);
-            this.CHK_MEvo2.TabIndex = 14;
-            this.CHK_MEvo2.Text = "Enabled";
-            this.CHK_MEvo2.UseVisualStyleBackColor = true;
-            this.CHK_MEvo2.CheckedChanged += new System.EventHandler(this.CHK_Changed);
+            CHK_MEvo2.AutoSize = true;
+            CHK_MEvo2.Location = new System.Drawing.Point(168, 45);
+            CHK_MEvo2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CHK_MEvo2.Name = "CHK_MEvo2";
+            CHK_MEvo2.Size = new System.Drawing.Size(68, 19);
+            CHK_MEvo2.TabIndex = 14;
+            CHK_MEvo2.Text = "Enabled";
+            CHK_MEvo2.UseVisualStyleBackColor = true;
+            CHK_MEvo2.CheckedChanged += CHK_Changed;
             // 
             // CB_Species
             // 
-            this.CB_Species.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.CB_Species.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.CB_Species.FormattingEnabled = true;
-            this.CB_Species.Location = new System.Drawing.Point(12, 12);
-            this.CB_Species.Name = "CB_Species";
-            this.CB_Species.Size = new System.Drawing.Size(181, 21);
-            this.CB_Species.TabIndex = 15;
-            this.CB_Species.SelectedIndexChanged += new System.EventHandler(this.ChangeIndex);
+            CB_Species.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            CB_Species.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            CB_Species.FormattingEnabled = true;
+            CB_Species.Location = new System.Drawing.Point(14, 14);
+            CB_Species.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CB_Species.Name = "CB_Species";
+            CB_Species.Size = new System.Drawing.Size(210, 23);
+            CB_Species.TabIndex = 15;
+            CB_Species.SelectedIndexChanged += ChangeIndex;
             // 
             // GB_MEvo3
             // 
-            this.GB_MEvo3.Controls.Add(this.LBL_Into3);
-            this.GB_MEvo3.Controls.Add(this.PB_M3);
-            this.GB_MEvo3.Controls.Add(this.CB_Forme3);
-            this.GB_MEvo3.Controls.Add(this.PB_S3);
-            this.GB_MEvo3.Controls.Add(this.CB_Item3);
-            this.GB_MEvo3.Controls.Add(this.LBL_Forme3);
-            this.GB_MEvo3.Controls.Add(this.LBL_Item3);
-            this.GB_MEvo3.Enabled = false;
-            this.GB_MEvo3.Location = new System.Drawing.Point(276, 62);
-            this.GB_MEvo3.Name = "GB_MEvo3";
-            this.GB_MEvo3.Size = new System.Drawing.Size(126, 142);
-            this.GB_MEvo3.TabIndex = 13;
-            this.GB_MEvo3.TabStop = false;
-            this.GB_MEvo3.Text = "Evolution 3";
+            GB_MEvo3.Controls.Add(LBL_Into3);
+            GB_MEvo3.Controls.Add(PB_M3);
+            GB_MEvo3.Controls.Add(CB_Forme3);
+            GB_MEvo3.Controls.Add(PB_S3);
+            GB_MEvo3.Controls.Add(CB_Item3);
+            GB_MEvo3.Controls.Add(LBL_Forme3);
+            GB_MEvo3.Controls.Add(LBL_Item3);
+            GB_MEvo3.Enabled = false;
+            GB_MEvo3.Location = new System.Drawing.Point(322, 72);
+            GB_MEvo3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            GB_MEvo3.Name = "GB_MEvo3";
+            GB_MEvo3.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            GB_MEvo3.Size = new System.Drawing.Size(147, 164);
+            GB_MEvo3.TabIndex = 13;
+            GB_MEvo3.TabStop = false;
+            GB_MEvo3.Text = "Evolution 3";
             // 
             // LBL_Into3
             // 
-            this.LBL_Into3.AutoSize = true;
-            this.LBL_Into3.Location = new System.Drawing.Point(48, 117);
-            this.LBL_Into3.Name = "LBL_Into3";
-            this.LBL_Into3.Size = new System.Drawing.Size(28, 13);
-            this.LBL_Into3.TabIndex = 36;
-            this.LBL_Into3.Text = "Into:";
+            LBL_Into3.AutoSize = true;
+            LBL_Into3.Location = new System.Drawing.Point(56, 135);
+            LBL_Into3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LBL_Into3.Name = "LBL_Into3";
+            LBL_Into3.Size = new System.Drawing.Size(31, 15);
+            LBL_Into3.TabIndex = 36;
+            LBL_Into3.Text = "Into:";
             // 
             // PB_M3
             // 
-            this.PB_M3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.PB_M3.Location = new System.Drawing.Point(79, 106);
-            this.PB_M3.Name = "PB_M3";
-            this.PB_M3.Size = new System.Drawing.Size(42, 32);
-            this.PB_M3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.PB_M3.TabIndex = 35;
-            this.PB_M3.TabStop = false;
+            PB_M3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            PB_M3.Location = new System.Drawing.Point(92, 122);
+            PB_M3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            PB_M3.Name = "PB_M3";
+            PB_M3.Size = new System.Drawing.Size(49, 37);
+            PB_M3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            PB_M3.TabIndex = 35;
+            PB_M3.TabStop = false;
             // 
             // CB_Forme3
             // 
-            this.CB_Forme3.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.CB_Forme3.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.CB_Forme3.FormattingEnabled = true;
-            this.CB_Forme3.Location = new System.Drawing.Point(3, 82);
-            this.CB_Forme3.Name = "CB_Forme3";
-            this.CB_Forme3.Size = new System.Drawing.Size(121, 21);
-            this.CB_Forme3.TabIndex = 20;
-            this.CB_Forme3.SelectedIndexChanged += new System.EventHandler(this.Update_PBs);
+            CB_Forme3.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            CB_Forme3.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            CB_Forme3.FormattingEnabled = true;
+            CB_Forme3.Location = new System.Drawing.Point(4, 95);
+            CB_Forme3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CB_Forme3.Name = "CB_Forme3";
+            CB_Forme3.Size = new System.Drawing.Size(140, 23);
+            CB_Forme3.TabIndex = 20;
+            CB_Forme3.SelectedIndexChanged += Update_PBs;
             // 
             // PB_S3
             // 
-            this.PB_S3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.PB_S3.Location = new System.Drawing.Point(3, 106);
-            this.PB_S3.Name = "PB_S3";
-            this.PB_S3.Size = new System.Drawing.Size(42, 32);
-            this.PB_S3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.PB_S3.TabIndex = 34;
-            this.PB_S3.TabStop = false;
+            PB_S3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            PB_S3.Location = new System.Drawing.Point(4, 122);
+            PB_S3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            PB_S3.Name = "PB_S3";
+            PB_S3.Size = new System.Drawing.Size(49, 37);
+            PB_S3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            PB_S3.TabIndex = 34;
+            PB_S3.TabStop = false;
             // 
             // CB_Item3
             // 
-            this.CB_Item3.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.CB_Item3.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.CB_Item3.FormattingEnabled = true;
-            this.CB_Item3.Location = new System.Drawing.Point(3, 36);
-            this.CB_Item3.Name = "CB_Item3";
-            this.CB_Item3.Size = new System.Drawing.Size(121, 21);
-            this.CB_Item3.TabIndex = 18;
-            this.CB_Item3.SelectedValueChanged += new System.EventHandler(this.Update_PBs);
+            CB_Item3.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            CB_Item3.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            CB_Item3.FormattingEnabled = true;
+            CB_Item3.Location = new System.Drawing.Point(4, 42);
+            CB_Item3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CB_Item3.Name = "CB_Item3";
+            CB_Item3.Size = new System.Drawing.Size(140, 23);
+            CB_Item3.TabIndex = 18;
+            CB_Item3.SelectedValueChanged += Update_PBs;
             // 
             // LBL_Forme3
             // 
-            this.LBL_Forme3.AutoSize = true;
-            this.LBL_Forme3.Location = new System.Drawing.Point(6, 65);
-            this.LBL_Forme3.Name = "LBL_Forme3";
-            this.LBL_Forme3.Size = new System.Drawing.Size(85, 13);
-            this.LBL_Forme3.TabIndex = 10;
-            this.LBL_Forme3.Text = "Alt Forme (if any)";
+            LBL_Forme3.AutoSize = true;
+            LBL_Forme3.Location = new System.Drawing.Point(7, 75);
+            LBL_Forme3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LBL_Forme3.Name = "LBL_Forme3";
+            LBL_Forme3.Size = new System.Drawing.Size(99, 15);
+            LBL_Forme3.TabIndex = 10;
+            LBL_Forme3.Text = "Alt Forme (if any)";
             // 
             // LBL_Item3
             // 
-            this.LBL_Item3.AutoSize = true;
-            this.LBL_Item3.Location = new System.Drawing.Point(6, 20);
-            this.LBL_Item3.Name = "LBL_Item3";
-            this.LBL_Item3.Size = new System.Drawing.Size(27, 13);
-            this.LBL_Item3.TabIndex = 9;
-            this.LBL_Item3.Text = "Item";
+            LBL_Item3.AutoSize = true;
+            LBL_Item3.Location = new System.Drawing.Point(7, 23);
+            LBL_Item3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LBL_Item3.Name = "LBL_Item3";
+            LBL_Item3.Size = new System.Drawing.Size(31, 15);
+            LBL_Item3.TabIndex = 9;
+            LBL_Item3.Text = "Item";
             // 
             // CHK_MEvo3
             // 
-            this.CHK_MEvo3.AutoSize = true;
-            this.CHK_MEvo3.Location = new System.Drawing.Point(285, 39);
-            this.CHK_MEvo3.Name = "CHK_MEvo3";
-            this.CHK_MEvo3.Size = new System.Drawing.Size(65, 17);
-            this.CHK_MEvo3.TabIndex = 16;
-            this.CHK_MEvo3.Text = "Enabled";
-            this.CHK_MEvo3.UseVisualStyleBackColor = true;
-            this.CHK_MEvo3.CheckedChanged += new System.EventHandler(this.CHK_Changed);
+            CHK_MEvo3.AutoSize = true;
+            CHK_MEvo3.Location = new System.Drawing.Point(332, 45);
+            CHK_MEvo3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CHK_MEvo3.Name = "CHK_MEvo3";
+            CHK_MEvo3.Size = new System.Drawing.Size(68, 19);
+            CHK_MEvo3.TabIndex = 16;
+            CHK_MEvo3.Text = "Enabled";
+            CHK_MEvo3.UseVisualStyleBackColor = true;
+            CHK_MEvo3.CheckedChanged += CHK_Changed;
             // 
             // bpkx
             // 
-            this.bpkx.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.bpkx.Location = new System.Drawing.Point(308, 99);
-            this.bpkx.Name = "bpkx";
-            this.bpkx.Size = new System.Drawing.Size(42, 32);
-            this.bpkx.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.bpkx.TabIndex = 31;
-            this.bpkx.TabStop = false;
+            bpkx.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            bpkx.Location = new System.Drawing.Point(308, 99);
+            bpkx.Name = "bpkx";
+            bpkx.Size = new System.Drawing.Size(42, 32);
+            bpkx.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            bpkx.TabIndex = 31;
+            bpkx.TabStop = false;
             // 
             // B_Dump
             // 
-            this.B_Dump.Location = new System.Drawing.Point(327, 5);
-            this.B_Dump.Name = "B_Dump";
-            this.B_Dump.Size = new System.Drawing.Size(75, 23);
-            this.B_Dump.TabIndex = 18;
-            this.B_Dump.Text = "Dump";
-            this.B_Dump.UseVisualStyleBackColor = true;
-            this.B_Dump.Click += new System.EventHandler(this.B_Dump_Click);
+            B_Dump.Location = new System.Drawing.Point(382, 6);
+            B_Dump.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            B_Dump.Name = "B_Dump";
+            B_Dump.Size = new System.Drawing.Size(88, 27);
+            B_Dump.TabIndex = 18;
+            B_Dump.Text = "Dump";
+            B_Dump.UseVisualStyleBackColor = true;
+            B_Dump.Click += B_Dump_Click;
             // 
-            // MEE
+            // B_Dump_JSON
             // 
-            this.AllowDrop = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(414, 212);
-            this.Controls.Add(this.B_Dump);
-            this.Controls.Add(this.CHK_MEvo3);
-            this.Controls.Add(this.GB_MEvo3);
-            this.Controls.Add(this.CB_Species);
-            this.Controls.Add(this.CHK_MEvo2);
-            this.Controls.Add(this.CHK_MEvo1);
-            this.Controls.Add(this.GB_MEvo2);
-            this.Controls.Add(this.GB_MEvo1);
-            this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(430, 250);
-            this.MinimumSize = new System.Drawing.Size(430, 250);
-            this.Name = "MegaEvoEditor6";
-            this.Text = "Mega Evo Editor";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_Closing);
-            this.GB_MEvo1.ResumeLayout(false);
-            this.GB_MEvo1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PB_M1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PB_S1)).EndInit();
-            this.GB_MEvo2.ResumeLayout(false);
-            this.GB_MEvo2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PB_M2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PB_S2)).EndInit();
-            this.GB_MEvo3.ResumeLayout(false);
-            this.GB_MEvo3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PB_M3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PB_S3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bpkx)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            B_Dump_JSON.Location = new System.Drawing.Point(287, 6);
+            B_Dump_JSON.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            B_Dump_JSON.Name = "B_Dump_JSON";
+            B_Dump_JSON.Size = new System.Drawing.Size(88, 27);
+            B_Dump_JSON.TabIndex = 19;
+            B_Dump_JSON.Text = "Export JSON";
+            B_Dump_JSON.UseVisualStyleBackColor = true;
+            B_Dump_JSON.Click += B_Export_As_JSON;
+            // 
+            // MegaEvoEditor6
+            // 
+            AllowDrop = true;
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(492, 253);
+            Controls.Add(B_Dump_JSON);
+            Controls.Add(B_Dump);
+            Controls.Add(CHK_MEvo3);
+            Controls.Add(GB_MEvo3);
+            Controls.Add(CB_Species);
+            Controls.Add(CHK_MEvo2);
+            Controls.Add(CHK_MEvo1);
+            Controls.Add(GB_MEvo2);
+            Controls.Add(GB_MEvo1);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            MaximizeBox = false;
+            MaximumSize = new System.Drawing.Size(500, 284);
+            MinimumSize = new System.Drawing.Size(500, 284);
+            Name = "MegaEvoEditor6";
+            Text = "Mega Evo Editor";
+            FormClosing += Form_Closing;
+            GB_MEvo1.ResumeLayout(false);
+            GB_MEvo1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)PB_M1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PB_S1).EndInit();
+            GB_MEvo2.ResumeLayout(false);
+            GB_MEvo2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)PB_M2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PB_S2).EndInit();
+            GB_MEvo3.ResumeLayout(false);
+            GB_MEvo3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)PB_M3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PB_S3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)bpkx).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 
@@ -462,5 +508,6 @@
         private System.Windows.Forms.Label LBL_Into2;
         private System.Windows.Forms.Label LBL_Into3;
         private System.Windows.Forms.Button B_Dump;
+        private System.Windows.Forms.Button B_Dump_JSON;
     }
 }

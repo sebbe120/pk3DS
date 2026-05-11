@@ -1,12 +1,16 @@
-﻿using System;
+﻿using pk3DS.Core;
+using pk3DS.Core.Structures;
+using pk3DS.Core.Structures.AXExports;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Media;
+using System.Reflection;
 using System.Text;
+using System.Text.Json;
 using System.Windows.Forms;
-
-using pk3DS.Core;
-using pk3DS.Core.Structures;
+using static pk3DS.Core.CTR.RomFS.LayoutManager;
 
 namespace pk3DS
 {
@@ -217,6 +221,85 @@ namespace pk3DS
             SystemSounds.Asterisk.Play();
             if (sfd.ShowDialog() == DialogResult.OK)
                 File.WriteAllText(sfd.FileName, result, Encoding.Unicode);
+
+            dumping = false;
+        }
+
+        private void B_Export_As_JSON(object sender, EventArgs e)
+        {
+            if (DialogResult.Yes != WinFormsUtil.Prompt(MessageBoxButtons.YesNo, "Export mega-evolutions as JSON?"))
+            {
+                return;
+            }
+
+            Dictionary<string, ExportEvoSite> evoDict = new();
+
+            dumping = true;
+
+            for (int i = 1; i < Main.Config.MaxSpeciesID; i++)
+            {
+                CB_Species.SelectedIndex = i;
+                string pkmName = AXHelpers.GetJSONPkmName(CB_Species);
+                ExportEvoSite evo = new();
+
+                for (int j = 0; j < 3; j++)
+                {
+                    if (!checkbox_spec[j].Checked)
+                    {
+                        continue;
+                    }
+
+                    string method = $"Mega Evolution: {item_spec[j].Text[..item_spec[j].Text.IndexOf(" - ")]}";
+                    method = method.Replace("’", "'");
+
+                    if (!string.IsNullOrEmpty(method))
+                    {
+                        string evolvePkmName = AXHelpers.GetJSONPkmName(forme_spec[j]);
+
+                        try
+                        {
+                            evo.EvolvesInto.Add(evolvePkmName, method);
+                        }
+                        catch (ArgumentException)
+                        {
+                            // Skip evolution since both Megite X and Megite Y have the same method
+                            // This only adds the first Megite evolution
+                            if (item_spec[j].Text.Contains("Megite"))
+                            {
+                                continue;
+                            }
+
+                            throw new Exception("Attempting to place a duplicate key for an unexpected form evolution.");
+                        }
+
+                        ExportEvoSite fromEvo = new()
+                        {
+                            EvolvesFrom = pkmName,
+                            FromMethod = method
+                        };
+
+                        try
+                        {
+                            evoDict.Add(evolvePkmName, fromEvo);
+                        }
+                        catch (ArgumentException)
+                        {
+                            evoDict[evolvePkmName].EvolvesFrom = fromEvo.EvolvesFrom;
+                            evoDict[evolvePkmName].FromMethod = fromEvo.FromMethod;
+                        }
+                    }
+                }
+            }
+
+            SaveFileDialog sfd = new() { FileName = "megaEvolutions.json", Filter = "JSON|*.json" };
+            SystemSounds.Asterisk.Play();
+
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                string path = sfd.FileName;
+                string json = JsonSerializer.Serialize(evoDict);
+                File.WriteAllText(path, json);
+            }
 
             dumping = false;
         }
