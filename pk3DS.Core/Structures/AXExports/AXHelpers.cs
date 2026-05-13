@@ -160,6 +160,12 @@ namespace pk3DS.Core.Structures.AXExports
             { "Florges 3", "Florges" }, // "Normalizing" Florges formes
             { "Florges 4", "Florges" }, // "Normalizing" Florges formes
             { "Florges 5", "Florges" }, // "Normalizing" Florges formes
+            { "Pikachu 1", "Pikachu-Rock-Star" },
+            { "Pikachu 2", "Pikachu-Belle" },
+            { "Pikachu 3", "Pikachu-Pop-Star" },
+            { "Pikachu 4", "Pikachu-Ph.D." },
+            { "Pikachu 5", "Pikachu-Libre" },
+            { "Pikachu 6", "Pikachu-Cosplay" },
         };
 
         public static readonly Dictionary<int, string> BetterEvoMethodDesc = new()
