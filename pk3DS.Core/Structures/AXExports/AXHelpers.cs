@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace pk3DS.Core.Structures.AXExports
@@ -185,15 +184,15 @@ namespace pk3DS.Core.Structures.AXExports
             if (pkmName.Contains("Nidoran"))
             {
                 if (cb.SelectedIndex == 28 || cb.SelectedIndex == 29)
-                    pkmName = pkmName.Substring(0, pkmName.Length - 1) + "-F";
+                    pkmName = pkmName[..^1] + "-F";
                 else if (cb.SelectedIndex == 31 || cb.SelectedIndex == 32)
-                    pkmName = pkmName.Substring(0, pkmName.Length - 1) + "-M";
+                    pkmName = pkmName[..^1] + "-M";
             }
 
-            if (AXPokemonFormNamesSite.ContainsKey(pkmName))
-                pkmName = AXPokemonFormNamesSite[pkmName];
-            else if (pkmName.Substring(pkmName.Length - 1) == "1")
-                pkmName = pkmName.Substring(0, pkmName.Length - 2) + "-Mega";
+            if (AXPokemonFormNamesSite.TryGetValue(pkmName, out string value))
+                pkmName = value;
+            else if (pkmName[^1..] == "1")
+                pkmName = pkmName[..^2] + "-Mega";
 
             return pkmName;
         }
@@ -210,10 +209,10 @@ namespace pk3DS.Core.Structures.AXExports
 				pkmName = "Unown";
 			}
 
-			if (AXPokemonFormNamesSite.ContainsKey(pkmName))
-				pkmName = AXPokemonFormNamesSite[pkmName];
-			else if (pkmName.Substring(pkmName.Length - 1) == "1")
-				pkmName = pkmName.Substring(0, pkmName.Length - 2) + "-Mega";
+			if (AXPokemonFormNamesSite.TryGetValue(pkmName, out string value))
+				pkmName = value;
+			else if (pkmName[^1..] == "1")
+				pkmName = pkmName[..^2] + "-Mega";
 
 			return pkmName;
 		}
