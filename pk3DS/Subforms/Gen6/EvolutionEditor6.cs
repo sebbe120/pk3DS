@@ -325,7 +325,7 @@ namespace pk3DS
                             else if (evolvePkmName == "Meowstic")
                                 evo.EvolvesInto.Add(evolvePkmName + "-Female", method);
                             else
-                                throw new Exception("Attempting to place a duplicate key for an unexpected form evolution.");
+                                throw new Exception($"Attempting to place a duplicate key for an unexpected form evolution: {evolvePkmName}");
                         }
 
                         ExportEvoSite fromEvo = new()
