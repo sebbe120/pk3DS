@@ -608,20 +608,21 @@ namespace pk3DS
                 };
 
                 int genderRatio = int.Parse(TB_Gender.Text);
+                pkm.GenderRatioValue = genderRatio;
                 // Index 0 = male & index 1 = female
                 // 0 = 100% male & 254 = 100% female
                 // 255 is genderless in pk3Ds
                 if (genderRatio == 254)
                 {
-                    pkm.GenderRatio = new string[2] { "0.00", "1.00" };
+                    pkm.GenderRatioStrings = new string[2] { "0.00", "1.00" };
                 }
                 else if (genderRatio == 0)
                 {
-                    pkm.GenderRatio = new string[2] { "1.00", "0.00" };
+                    pkm.GenderRatioStrings = new string[2] { "1.00", "0.00" };
                 }
                 else if (genderRatio < 254)
                 {
-                    pkm.GenderRatio = new string[2] { Math.Round(1 - (double.Parse(TB_Gender.Text) + 1) / 256, 3).ToString().Replace(",", "."), Math.Round((double.Parse(TB_Gender.Text) + 1) / 256, 3).ToString().Replace(",", ".") };
+                    pkm.GenderRatioStrings = new string[2] { Math.Round(1 - (double.Parse(TB_Gender.Text) + 1) / 256, 3).ToString().Replace(",", "."), Math.Round((double.Parse(TB_Gender.Text) + 1) / 256, 3).ToString().Replace(",", ".") };
                 }
 
                 if (CB_HeldItem1.Text != "")
